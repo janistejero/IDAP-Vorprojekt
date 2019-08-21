@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.PieChart?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
@@ -11,8 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="800.0" prefWidth="1200.0" style="-fx-background-color: white;" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.1" fx:controller="gewinnverteiler.Controller.ResultController">
+<AnchorPane id="AnchorPane" fx:id="rootpane" prefHeight="800.0" prefWidth="1200.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gewinnverteiler.Controller.ResultController">
    <children>
       <BorderPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #343640; -fx-border-color: #40414a;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <top>
@@ -20,9 +21,15 @@
                <children>
                   <MenuBar style="-fx-background-color: #9d9fab; -fx-border-color: #40414a;">
                     <menus>
-                      <Menu mnemonicParsing="false" text="Rechner" />
+                      <Menu fx:id="menuRechner" mnemonicParsing="false" onAction="#goToRechner" text="Rechner">
+                           <items>
+                              <MenuItem mnemonicParsing="false" text="Rechner zeigen" />
+                           </items></Menu>
                       <Menu mnemonicParsing="false" text="Resultat" />
-                      <Menu mnemonicParsing="false" text="Hilfe" />
+                      <Menu fx:id="menuHilfe" mnemonicParsing="false" onAction="#goToHilfe" text="Hilfe">
+                           <items>
+                              <MenuItem mnemonicParsing="false" text="Hilfe zeigen" />
+                           </items></Menu>
                     </menus>
                   </MenuBar>
                   <HBox alignment="TOP_CENTER" prefHeight="25.0" prefWidth="200.0">
@@ -110,12 +117,12 @@
                                           <Font name="Arial Narrow" size="20.0" />
                                        </font>
                                     </Label>
-                                    <Label fx:id="aktuell1ReserveLbl1" prefWidth="100.0" text="10'000" textFill="#d6d6d6">
+                                    <Label fx:id="ziel1ReserveLbl" prefWidth="100.0" text="10'000" textFill="#d6d6d6">
                                        <font>
                                           <Font name="Arial Narrow" size="20.0" />
                                        </font>
                                     </Label>
-                                    <Label fx:id="aktuell1ReserveLbl2" prefWidth="100.0" text="10'000" textFill="#d6d6d6">
+                                    <Label fx:id="ziel2ReserveLbl" prefWidth="100.0" text="10'000" textFill="#d6d6d6">
                                        <font>
                                           <Font name="Arial Narrow" size="20.0" />
                                        </font>
@@ -123,6 +130,34 @@
                                           <Insets />
                                        </HBox.margin>
                                     </Label>
+                                 </children>
+                              </HBox>
+                              <HBox prefHeight="35.0" spacing="100.0">
+                                 <children>
+                                    <Label prefWidth="70.0" text="Neu:" textFill="#d6d6d6">
+                                       <font>
+                                          <Font name="Arial Narrow" size="20.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="neu1ReserveLbl" prefWidth="100.0" text="10'500" textFill="#d6d6d6">
+                                       <font>
+                                          <Font name="Arial Narrow" size="20.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="neu2ReserveLbl" prefWidth="100.0" text="10'000" textFill="#d6d6d6">
+                                       <font>
+                                          <Font name="Arial Narrow" size="20.0" />
+                                       </font>
+                                       <HBox.margin>
+                                          <Insets />
+                                       </HBox.margin>
+                                    </Label>
+                                 </children>
+                              </HBox>
+                              <HBox prefHeight="35.0" spacing="100.0">
+                                 <children>
+                                    <PieChart fx:id="reserve1Chart" />
+                                    <PieChart fx:id="reserve2Chart" />
                                  </children>
                               </HBox>
                            </children>

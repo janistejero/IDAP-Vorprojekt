@@ -17,7 +17,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" fx:id="rootpane" prefHeight="600.0" prefWidth="500.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gewinnverteiler.Controller.CalculatorController">
+<AnchorPane id="AnchorPane" fx:id="rootpane" prefHeight="600.0" prefWidth="500.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gewinnverteiler.Controller.CalculatorController">
    <children>
       <BorderPane prefHeight="600.0" prefWidth="500.0" style="-fx-background-color: #343640; -fx-border-color: #40414a;">
          <top>
@@ -25,12 +25,15 @@
                <children>
                   <MenuBar style="-fx-background-color: #9d9fab; -fx-border-color: #40414a;">
                     <menus>
-                      <Menu fx:id="menuRechner" mnemonicParsing="false" onAction="#goToRechner" text="Rechner" />
-                      <Menu fx:id="menuResultat" mnemonicParsing="false" text="Resultat">
+                      <Menu mnemonicParsing="false" text="Rechner" />
+                      <Menu fx:id="menuResultat" mnemonicParsing="false" onAction="#goToResultat" text="Resultat">
                            <items>
-                              <MenuItem mnemonicParsing="false" onAction="#goToResultat" />
+                              <MenuItem mnemonicParsing="false" text="Resultat zeigen" />
                            </items></Menu>
-                      <Menu fx:id="menuHilfe" mnemonicParsing="false" onAction="#goToHilfe" text="Hilfe" />
+                      <Menu fx:id="menuHilfe" mnemonicParsing="false" onAction="#goToHilfe" text="Hilfe">
+                           <items>
+                              <MenuItem mnemonicParsing="false" text="Hilfe zeigen" />
+                           </items></Menu>
                     </menus>
                   </MenuBar>
                   <HBox alignment="TOP_CENTER" prefHeight="25.0" prefWidth="200.0">
@@ -121,11 +124,11 @@
                         </VBox>
                         <VBox alignment="TOP_CENTER" fillWidth="false" prefWidth="150.0" spacing="20.0" HBox.hgrow="ALWAYS">
                            <children>
-                              <Spinner fx:id="nettogewinnSpn" editable="true" />
-                              <Spinner fx:id="aktienanzahlSpn" editable="true" />
-                              <Spinner fx:id="partizipationskapitalSpn" editable="true" />
-                              <Spinner fx:id="gesReservernSpn" editable="true" />
-                              <Spinner fx:id="erfolgvortragSpn" editable="true" />
+                              <Spinner fx:id="nettogewinnSpn" editable="true" prefWidth="130.0" />
+                              <Spinner fx:id="aktienanzahlSpn" editable="true" prefWidth="130.0" />
+                              <Spinner fx:id="partizipationskapitalSpn" editable="true" prefWidth="130.0" />
+                              <Spinner fx:id="gesReservernSpn" editable="true" prefWidth="130.0" />
+                              <Spinner fx:id="erfolgvortragSpn" editable="true" prefWidth="130.0" />
                            </children>
                         </VBox>
                      </children>

@@ -23,8 +23,6 @@ public class Main extends Application {
     @Override
        public void start(Stage primaryStage) throws IOException {
 
-        StageSingleton.getInstance().setStage(primaryStage);
-           
         Parent root = FXMLLoader.load(getClass().getResource("View/Calculator.fxml"));
         Scene scene = new Scene(root, 487, 587);
         primaryStage.setResizable(false);

@@ -11,7 +11,6 @@ and open the template in the editor.
 .button-raised{
     -fx-padding: 0.7em 0.57em;
     -fx-font-family: 'Rockwell', Arial, sans-serif; 
-    -jfx-button-type: RAISED;
     -fx-background-color: rgb(52, 54, 70);
     -fx-text-fill: WHITE;
     -fx-border-color: rgb(143, 143, 143);
@@ -21,14 +20,12 @@ and open the template in the editor.
 
 .button-raised:hover{
     -fx-padding: 0.7em 0.57em;
-    -jfx-button-type: RAISED;
     -fx-background-color: rgb(42, 44, 60);
     -fx-text-fill: WHITE;
 }
 
 .button-raised:pressed{
     -fx-padding: 0.7em 0.57em;
-    -jfx-button-type: RAISED;
     -fx-background-color: rgb(52, 54, 80);
     -fx-text-fill: WHITE;
 }
