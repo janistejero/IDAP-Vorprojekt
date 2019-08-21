@@ -5,6 +5,7 @@
  */
 package gewinnverteiler.Controller;
 
+import gewinnverteiler.StageSingleton;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -22,6 +23,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.Spinner;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 /**
@@ -49,22 +51,26 @@ public class CalculatorController implements Initializable {
     private Menu menuRechner;
     @FXML
     private Menu menuHilfe;
+    @FXML
+    private AnchorPane rootpane;
+    @FXML
+    private Menu menuResultat;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        errorLbl.setVisible(false);
+        errorLbl.setVisible(true);
 
         berechnenBtn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 try {
                     Parent root = FXMLLoader.load(getClass().getResource("src\\gewinnverteiler\\View\\Result.fxml"));
-                    
+
                     Scene scene = new Scene(root);
-                    
+
                     Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                     stage.setScene(scene);
                     stage.show();
@@ -97,17 +103,28 @@ public class CalculatorController implements Initializable {
 
     @FXML
     private void goToResultat(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("../View/Result.fxml"));
 
-        Scene scene = new Scene(root);
+        try {
 
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.setScene(scene);
-        stage.show();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("View/Result.fxml"));
+            Parent root;
+            root = (Parent) loader.load();
+            Scene scene = new Scene(root);
+            // Stage s = StageSingleton.getInstance().getStage();
+            Stage s = (Stage) rootpane.getScene().getWindow();
+            s.setScene(scene);
+
+            /*
+            AnchorPane pane = FXMLLoader.load(getClass().getResource("View/Result.fxml"));
+            rootpane.getChildren().setAll(pane);*/
+        } catch (IOException e) {
+            System.out.println("Can't load new window");
+        }
     }
 
     @FXML
     private void goToHilfe(ActionEvent event) {
+
     }
 
 }

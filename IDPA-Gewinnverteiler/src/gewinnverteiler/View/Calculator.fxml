@@ -17,9 +17,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" minHeight="600.0" minWidth="500.0" prefHeight="600.0" prefWidth="500.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gewinnverteiler.Controller.CalculatorController">
+<AnchorPane id="AnchorPane" fx:id="rootpane" prefHeight="600.0" prefWidth="500.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gewinnverteiler.Controller.CalculatorController">
    <children>
-      <BorderPane minHeight="600.0" minWidth="500.0" style="-fx-background-color: #343640; -fx-border-color: #40414a;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <BorderPane prefHeight="600.0" prefWidth="500.0" style="-fx-background-color: #343640; -fx-border-color: #40414a;">
          <top>
             <VBox prefHeight="150.0" prefWidth="100.0" BorderPane.alignment="CENTER">
                <children>
@@ -52,7 +52,7 @@
             </VBox>
          </top>
          <bottom>
-            <VBox alignment="BOTTOM_CENTER" prefHeight="150.0" prefWidth="100.0" spacing="50.0" BorderPane.alignment="CENTER">
+            <VBox alignment="BOTTOM_CENTER" prefHeight="100.0" prefWidth="100.0" spacing="20.0" BorderPane.alignment="CENTER">
                <children>
                   <Label fx:id="errorLbl" alignment="CENTER" prefWidth="300.0" text="Error" textFill="WHITE">
                      <font>
@@ -83,11 +83,11 @@
             </VBox>
          </bottom>
          <center>
-            <Pane prefWidth="200.0" style="-fx-background-color: #40414a;" styleClass="round-pane" stylesheets="@../../Resources/styles.css" BorderPane.alignment="CENTER">
+            <Pane prefHeight="200.0" prefWidth="300.0" style="-fx-background-color: #40414a;" styleClass="round-pane" stylesheets="@../../Resources/styles.css" BorderPane.alignment="CENTER">
                <children>
                   <HBox spacing="20.0">
                      <children>
-                        <VBox prefHeight="200.0" prefWidth="250.0" spacing="20.0">
+                        <VBox prefWidth="250.0" spacing="20.0" HBox.hgrow="ALWAYS">
                            <children>
                               <Label text="Nettogewinn" textFill="#d6d6d6">
                                  <font>
@@ -119,7 +119,7 @@
                               <Insets left="50.0" />
                            </padding>
                         </VBox>
-                        <VBox alignment="TOP_CENTER" fillWidth="false" prefHeight="200.0" prefWidth="150.0" spacing="20.0">
+                        <VBox alignment="TOP_CENTER" fillWidth="false" prefWidth="150.0" spacing="20.0" HBox.hgrow="ALWAYS">
                            <children>
                               <Spinner fx:id="nettogewinnSpn" editable="true" />
                               <Spinner fx:id="aktienanzahlSpn" editable="true" />
