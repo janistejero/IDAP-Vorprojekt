@@ -8,6 +8,8 @@ package gewinnverteiler.Controller;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
@@ -21,6 +23,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
@@ -34,16 +37,6 @@ public class CalculatorController implements Initializable {
     @FXML
     private Button berechnenBtn;
     @FXML
-    private Spinner<Double> nettogewinnSpn;
-    @FXML
-    private Spinner<Double> aktienanzahlSpn;
-    @FXML
-    private Spinner<Double> partizipationskapitalSpn;
-    @FXML
-    private Spinner<Double> gesReservernSpn;
-    @FXML
-    private Spinner<Double> erfolgvortragSpn;
-    @FXML
     private Label errorLbl;
     @FXML
     private Menu menuHilfe;
@@ -51,14 +44,39 @@ public class CalculatorController implements Initializable {
     private AnchorPane rootpane;
     @FXML
     private Menu menuResultat;
+    @FXML
+    private TextField erfolgTxt;
+    @FXML
+    private TextField aktienkapitalTxt;
+    @FXML
+    private TextField partizipationskapitalTxt;
+    @FXML
+    private TextField gesReservenTxt;
+    @FXML
+    private TextField erfolgvortragTxt;
+    @FXML
+    private TextField zielDividendeTxt;
 
-    /**
-     * Initializes the controller class.
-     */
+    // variablen
+    private double reservenzuweisung;
+    private double neuererfolgvortag;
+    private double bilanzerfolg;
+    private double zwischenresultat;
+    private double erforderlicheReserve;
+    private double erfolg;
+    private double aktienkapital;
+    private double partizipationskapital;
+    private double gesReserven;
+    private double erfolgvortrag;
+    private double gewuenschteDividende;
+    private double dividende;
+    private boolean dividendenAusschuettung = true;
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        errorLbl.setVisible(false);
+        //errorLbl.setVisible(false);
 
+        /*
         menuResultat.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
@@ -72,46 +90,79 @@ public class CalculatorController implements Initializable {
                 goToHilfe(event);
             }
         });
-        
-         // Value factory.
-        final int initialValue = 1000;
-        SpinnerValueFactory<Double> valueFactory1 = new SpinnerValueFactory.DoubleSpinnerValueFactory(1, 100000000, initialValue);
-        SpinnerValueFactory<Double> valueFactory2 = new SpinnerValueFactory.DoubleSpinnerValueFactory(1, 10000000, initialValue);
-        SpinnerValueFactory<Double> valueFactory3 = new SpinnerValueFactory.DoubleSpinnerValueFactory(1, 100000000, initialValue);
-        SpinnerValueFactory<Double> valueFactory4 = new SpinnerValueFactory.DoubleSpinnerValueFactory(1, 10000000, initialValue);
-        SpinnerValueFactory<Double> valueFactory5 = new SpinnerValueFactory.DoubleSpinnerValueFactory(1, 10000000, initialValue);
-        
-        nettogewinnSpn.setValueFactory(valueFactory1);
-        aktienanzahlSpn.setValueFactory(valueFactory2);
-        partizipationskapitalSpn.setValueFactory(valueFactory3);
-        gesReservernSpn.setValueFactory(valueFactory4);
-        erfolgvortragSpn.setValueFactory(valueFactory5);
-        
-        nettogewinnSpn.getStyleClass().clear();
-        aktienanzahlSpn.getStyleClass().clear();
-        partizipationskapitalSpn.getStyleClass().clear();
-        gesReservernSpn.getStyleClass().clear();
-        erfolgvortragSpn.getStyleClass().clear();
+         */
+        erfolgTxt.setText("10000");
+        aktienkapitalTxt.setText("100000");
+        partizipationskapitalTxt.setText("10000");
+        gesReservenTxt.setText("10000");
+        erfolgvortragTxt.setText("10000");
+        zielDividendeTxt.setText("5");
     }
 
     @FXML
     private void berechnen(ActionEvent event) {
-        prüfeInput(nettogewinnSpn.getValue(), aktienanzahlSpn.getValue(), partizipationskapitalSpn.getValue(), gesReservernSpn.getValue(), erfolgvortragSpn.getValue());
-    }
 
-    private boolean prüfeInput(double nettogewinn, double aktienanzahl, double partizipationskapital, double gesReserven, double erfolgvortrag) {
-        boolean valid = false;
-        if (aktienanzahl < 0 || aktienanzahl == 0) {
-            errorLbl.setText("Die Aktienanzahl kann als AG nicht unter 0 sein.");
-            errorLbl.setVisible(true);
+        // lesen der Benutzereingaben
+        erfolg = Double.valueOf(erfolgTxt.getText());
+        aktienkapital = Double.valueOf(aktienkapitalTxt.getText());
+        partizipationskapital = Double.valueOf(partizipationskapitalTxt.getText());
+        gesReserven = Double.valueOf(gesReservenTxt.getText());
+        erfolgvortrag = Double.valueOf(erfolgvortragTxt.getText());
+        gewuenschteDividende = Double.valueOf(zielDividendeTxt.getText());
+
+        if (aktienkapital < 0 || aktienkapital == 0) {
         }
 
-        return true;
+        // verrechnung erfolg mit vortrag
+        bilanzerfolg = erfolg + erfolgvortrag;
+
+        if (bilanzerfolg < 0 && gesReserven > bilanzerfolg) {
+            gesReserven -= bilanzerfolg;
+            bilanzerfolg = 0;
+            dividende = 0;
+            dividendenAusschuettung = false;
+        }
+
+        erforderlicheReserve = ((aktienkapital + partizipationskapital) / 100) * 20;
+        System.out.println("Bilanzergebnis nach Verrechnung: " + bilanzerfolg);
+        if (dividendenAusschuettung) {
+            if (gesReserven < erforderlicheReserve) {
+                double zuweisungGesReserven = erfolg / 100 * 5;
+                if (zuweisungGesReserven < 1) {
+                    zuweisungGesReserven = 0;
+                }
+                bilanzerfolg -= zuweisungGesReserven;
+                gesReserven += zuweisungGesReserven;
+                System.out.println("An ges. Reserven: " + zuweisungGesReserven);
+            }
+        }
+
+        System.out.println("Erforderliche Reserve: " + erforderlicheReserve);
+
+        System.out.println("Gesetzliche Reserven nach Verrechnung: " + gesReserven);
+
+        double volleGrundDividende = partizipationskapital + aktienkapital / 100 * 5;
+
+        if (volleGrundDividende < bilanzerfolg) {
+            bilanzerfolg -= volleGrundDividende;
+            dividende = volleGrundDividende;
+            zwischenresultat = bilanzerfolg;
+        } else if (volleGrundDividende > bilanzerfolg) {
+            dividende = Math.floor(bilanzerfolg / (aktienkapital + partizipationskapital) * 100);
+            dividende = ((aktienkapital + partizipationskapital) / 100) * dividende;
+            bilanzerfolg -= dividende;
+            zwischenresultat = bilanzerfolg;
+
+        }
+        System.out.println("Zwischentotal: " + zwischenresultat);
+        System.out.println("Dividende: " + dividende);
+
+        double superdividende = Math.floor(bilanzerfolg / (aktienkapital + partizipationskapital) * 0.011);
     }
 
     @FXML
-    private void goToResultat(Event event) {
-        loadFXML("Result.fxml");
+    private void goToResultat(ActionEvent event) {
+        loadFXML("/View/Result.fxml");
     }
 
     @FXML
@@ -131,7 +182,7 @@ public class CalculatorController implements Initializable {
             stage.show();
             oldstage.close();
 
-        } catch (IOException e) {
+        } catch (Exception e) {
             System.out.println("Can't load new window:" + name + " because of:");
             e.printStackTrace();
         }
