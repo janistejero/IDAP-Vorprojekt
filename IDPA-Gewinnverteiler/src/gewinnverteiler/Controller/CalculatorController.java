@@ -102,6 +102,11 @@ public class CalculatorController implements Initializable {
     @FXML
     private void berechnen(ActionEvent event) {
 
+        /*
+         while (erfolgTxt.getText().equals("") || aktienkapitalTxt.getText().equals("") || partizipationskapitalTxt.getText().equals("") || gesReservenTxt.getText().equals("") || erfolgvortragTxt.getText().equals("") || zielDividendeTxt.getText().equals("")) {
+            errorLbl.setText("Value must be a number");
+        }*/
+        
         // lesen der Benutzereingaben
         erfolg = Double.valueOf(erfolgTxt.getText());
         aktienkapital = Double.valueOf(aktienkapitalTxt.getText());
@@ -116,15 +121,17 @@ public class CalculatorController implements Initializable {
         // verrechnung erfolg mit vortrag
         bilanzerfolg = erfolg + erfolgvortrag;
 
+        erforderlicheReserve = ((aktienkapital + partizipationskapital) / 100) * 20;
+        System.out.println("Bilanzerfolg: " + bilanzerfolg);
+
+        // ausgleich mit reserven
         if (bilanzerfolg < 0 && gesReserven > bilanzerfolg) {
-            gesReserven -= bilanzerfolg;
+            gesReserven += bilanzerfolg;
             bilanzerfolg = 0;
             dividende = 0;
             dividendenAusschuettung = false;
         }
 
-        erforderlicheReserve = ((aktienkapital + partizipationskapital) / 100) * 20;
-        System.out.println("Bilanzergebnis nach Verrechnung: " + bilanzerfolg);
         if (dividendenAusschuettung) {
             if (gesReserven < erforderlicheReserve) {
                 double zuweisungGesReserven = erfolg / 100 * 5;
@@ -133,13 +140,11 @@ public class CalculatorController implements Initializable {
                 }
                 bilanzerfolg -= zuweisungGesReserven;
                 gesReserven += zuweisungGesReserven;
-                System.out.println("An ges. Reserven: " + zuweisungGesReserven);
+                System.out.println("1. gesetzliche Reserven: " + zuweisungGesReserven);
             }
         }
 
-        System.out.println("Erforderliche Reserve: " + erforderlicheReserve);
-
-        System.out.println("Gesetzliche Reserven nach Verrechnung: " + gesReserven);
+        System.out.println("Gesetzliche Reserven jetzt: " + gesReserven);
 
         double volleGrundDividende = partizipationskapital + aktienkapital / 100 * 5;
 
@@ -154,8 +159,8 @@ public class CalculatorController implements Initializable {
             zwischenresultat = bilanzerfolg;
 
         }
-        System.out.println("Zwischentotal: " + zwischenresultat);
         System.out.println("Dividende: " + dividende);
+        System.out.println("Zwischentotal: " + zwischenresultat);
 
         double superdividende = Math.floor(bilanzerfolg / (aktienkapital + partizipationskapital) * 0.011);
     }

@@ -20,7 +20,7 @@ public class NumericTextField extends TextField {
         });
 
         textProperty().addListener((ObservableValue<? extends String> observableValue, String oldValue, String newValue) -> {
-            if (!isValid(newValue)) {
+            if (!isValid(newValue) || newValue.isEmpty()) {
                 setText(oldValue);
             }
         });
