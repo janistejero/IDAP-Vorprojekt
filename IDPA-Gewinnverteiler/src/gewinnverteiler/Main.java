@@ -21,8 +21,8 @@ public class Main extends Application {
     @Override
        public void start(Stage primaryStage) throws IOException {
 
-        Parent root = FXMLLoader.load(getClass().getResource("View/Calculator.fxml"));
-        Scene scene = new Scene(root, 487, 587);
+        Parent root = FXMLLoader.load(getClass().getResource("View/Result.fxml"));
+        Scene scene = new Scene(root);
         primaryStage.setResizable(false);
         primaryStage.getIcons().add(new Image("Resources/calculator.png"));
         primaryStage.setScene(scene);

@@ -60,7 +60,7 @@ public class ResultController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-        /*
+        
         menuRechner.setOnAction((ActionEvent event) -> {
             goToRechner(event);
         });
@@ -80,7 +80,7 @@ public class ResultController implements Initializable {
                         new PieChart.Data("Aktuell", 5000),
                         new PieChart.Data("Ziel", 1000));
         reserve2Chart.getData().addAll(reserve2Data);
-*/
+        
     }
 
     public void showResults() {
