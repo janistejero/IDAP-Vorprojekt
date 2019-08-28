@@ -75,22 +75,6 @@ public class CalculatorController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         //errorLbl.setVisible(false);
-
-        /*
-        menuResultat.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                goToResultat(event);
-            }
-        });
-
-        menuHilfe.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                goToHilfe(event);
-            }
-        });
-         */
         erfolgTxt.setText("10000");
         aktienkapitalTxt.setText("100000");
         partizipationskapitalTxt.setText("10000");
@@ -101,11 +85,6 @@ public class CalculatorController implements Initializable {
 
     @FXML
     private void berechnen(ActionEvent event) {
-
-        /*
-         while (erfolgTxt.getText().equals("") || aktienkapitalTxt.getText().equals("") || partizipationskapitalTxt.getText().equals("") || gesReservenTxt.getText().equals("") || erfolgvortragTxt.getText().equals("") || zielDividendeTxt.getText().equals("")) {
-            errorLbl.setText("Value must be a number");
-        }*/
         
         // lesen der Benutzereingaben
         erfolg = Double.valueOf(erfolgTxt.getText());
@@ -142,6 +121,8 @@ public class CalculatorController implements Initializable {
                 gesReserven += zuweisungGesReserven;
                 System.out.println("1. gesetzliche Reserven: " + zuweisungGesReserven);
             }
+        } else{
+            System.out.println("Keine Dividende, Superdividende oder Reservenzuweisung, da ein Bilanzverlust vorhanden ist.");
         }
 
         System.out.println("Gesetzliche Reserven jetzt: " + gesReserven);
@@ -163,6 +144,7 @@ public class CalculatorController implements Initializable {
         System.out.println("Zwischentotal: " + zwischenresultat);
 
         double superdividende = Math.floor(bilanzerfolg / (aktienkapital + partizipationskapital) * 0.011);
+        System.out.println("Superdividende: "  + superdividende);
     }
 
     @FXML

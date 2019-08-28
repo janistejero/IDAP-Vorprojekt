@@ -83,9 +83,11 @@ public class ResultController implements Initializable {
 */
     }
 
-    public void showResults() {
+    public void showResults(double nettogewinn, double bilanzerfolg) {
 
     }
+    
+    
 
     @FXML
     private void goToRechner(Event event) {
