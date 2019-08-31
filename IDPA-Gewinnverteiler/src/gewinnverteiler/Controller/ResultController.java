@@ -60,7 +60,6 @@ public class ResultController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-        
         menuRechner.setOnAction((ActionEvent event) -> {
             goToRechner(event);
         });
@@ -90,7 +89,7 @@ public class ResultController implements Initializable {
     
 
     @FXML
-    private void goToRechner(Event event) {
+    private void goToRechner(ActionEvent event) {
         loadFXML("Calculator.fxml");
     }
 
@@ -103,10 +102,8 @@ public class ResultController implements Initializable {
         try {
             Stage stage = new Stage();
             Stage oldstage = (Stage) rootpane.getScene().getWindow();
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(name));
-            Parent root = (Parent) loader.load();
-            Scene scene = new Scene(root);
-            stage.setScene(scene);
+            Parent root = FXMLLoader.load(getClass().getClassLoader().getResource(name));
+            stage.setScene(new Scene(root));
             stage.setTitle(name);
             stage.show();
             oldstage.close();

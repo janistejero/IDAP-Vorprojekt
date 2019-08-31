@@ -149,7 +149,7 @@ public class CalculatorController implements Initializable {
 
     @FXML
     private void goToResultat(ActionEvent event) {
-        loadFXML("Result.fxml");
+        loadFXML("View/Result.fxml");
     }
 
     @FXML

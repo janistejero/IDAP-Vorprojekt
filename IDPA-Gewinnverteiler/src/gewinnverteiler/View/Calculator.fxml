@@ -16,7 +16,6 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-<?import gewinnverteiler.NumericTextField?>
 
 <AnchorPane id="AnchorPane" fx:id="rootpane" prefHeight="600.0" prefWidth="500.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gewinnverteiler.Controller.CalculatorController">
    <children>
@@ -130,12 +129,12 @@
                         </VBox>
                         <VBox alignment="TOP_CENTER" fillWidth="false" prefWidth="150.0" spacing="20.0" HBox.hgrow="ALWAYS">
                            <children>
-                              <NumericTextField fx:id="erfolgTxt" />
-                              <NumericTextField fx:id="aktienkapitalTxt" />
-                              <NumericTextField fx:id="partizipationskapitalTxt" />
-                              <NumericTextField fx:id="gesReservenTxt" />
-                              <NumericTextField fx:id="erfolgvortragTxt" />
-                              <NumericTextField fx:id="zielDividendeTxt" />
+                              <TextField fx:id="erfolgTxt" />
+                              <TextField fx:id="aktienkapitalTxt" />
+                              <TextField fx:id="partizipationskapitalTxt" />
+                              <TextField fx:id="gesReservenTxt" />
+                              <TextField fx:id="erfolgvortragTxt" />
+                              <TextField fx:id="zielDividendeTxt" />
                            </children>
                         </VBox>
                      </children>
