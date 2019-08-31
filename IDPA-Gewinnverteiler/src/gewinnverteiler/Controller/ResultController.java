@@ -56,11 +56,13 @@ public class ResultController implements Initializable {
 
     /**
      * Initializes the controller class.
+     * @param url
+     * @param rb
      */
     @Override
-    public void initialize(URL location, ResourceBundle resources) {
+    public void initialize(URL url, ResourceBundle rb) {
 
-        /*
+        
         menuRechner.setOnAction((ActionEvent event) -> {
             goToRechner(event);
         });
@@ -80,10 +82,10 @@ public class ResultController implements Initializable {
                         new PieChart.Data("Aktuell", 5000),
                         new PieChart.Data("Ziel", 1000));
         reserve2Chart.getData().addAll(reserve2Data);
-*/
+
     }
 
-    public void showResults(double nettogewinn, double bilanzerfolg) {
+    public void showResults(double erfolg, double vortrag, double bilanzerfolg, double reservenzuweisung,  double zwischentotal, double dividende, double superdividende, double zweitereservenzuweisung) {
 
     }
     
