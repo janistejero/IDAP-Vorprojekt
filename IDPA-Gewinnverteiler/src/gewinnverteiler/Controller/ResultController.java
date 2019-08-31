@@ -83,6 +83,7 @@ public class ResultController implements Initializable {
                         new PieChart.Data("Ziel", 1000));
         reserve2Chart.getData().addAll(reserve2Data);
 
+        
     }
 
     public void showResults(double erfolg, double vortrag, double bilanzerfolg, double reservenzuweisung,  double zwischentotal, double dividende, double superdividende, double zweitereservenzuweisung) {
@@ -92,7 +93,7 @@ public class ResultController implements Initializable {
     
 
     @FXML
-    private void goToRechner(Event event) {
+    private void goToRechner(ActionEvent event) {
         loadFXML("Calculator.fxml");
     }
 
@@ -105,10 +106,8 @@ public class ResultController implements Initializable {
         try {
             Stage stage = new Stage();
             Stage oldstage = (Stage) rootpane.getScene().getWindow();
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(name));
-            Parent root = (Parent) loader.load();
-            Scene scene = new Scene(root);
-            stage.setScene(scene);
+            Parent root = FXMLLoader.load(getClass().getClassLoader().getResource(name));
+            stage.setScene(new Scene(root));
             stage.setTitle(name);
             stage.show();
             oldstage.close();

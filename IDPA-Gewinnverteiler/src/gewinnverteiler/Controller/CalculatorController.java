@@ -150,6 +150,7 @@ public class CalculatorController implements Initializable {
     @FXML
     private void goToResultat(ActionEvent event) {
         loadFXML("../Result.fxml");
+        loadFXML("View/Result.fxml");
     }
 
     @FXML
@@ -169,7 +170,7 @@ public class CalculatorController implements Initializable {
             stage.show();
             oldstage.close();
 
-        } catch (Exception e) {
+        } catch (IOException e) {
             System.out.println("Can't load new window:" + name + " because of:");
             e.printStackTrace();
         }
