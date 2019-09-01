@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" fx:id="rootpane" prefHeight="600.0" prefWidth="500.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gewinnverteiler.Controller.CalculatorController">
+   <children>
+      <BorderPane prefHeight="600.0" prefWidth="500.0" style="-fx-background-color: #343640; -fx-border-color: #40414a;">
+         <top>
+            <VBox prefHeight="150.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+               <children>
+                  <MenuBar style="-fx-background-color: #9d9fab;">
+                    <menus>
+                      <Menu mnemonicParsing="false" text="Rechner" />
+                      <Menu fx:id="menuResultat" mnemonicParsing="false" onAction="#goToResultat" text="Resultat">
+                           <items>
+                              <MenuItem mnemonicParsing="false" text="Resultat zeigen" />
+                           </items></Menu>
+                      <Menu fx:id="menuHilfe" mnemonicParsing="false" onAction="#goToHilfe" text="Hilfe">
+                           <items>
+                              <MenuItem mnemonicParsing="false" text="Hilfe zeigen" />
+                           </items></Menu>
+                    </menus>
+                  </MenuBar>
+                  <HBox alignment="TOP_CENTER" prefHeight="25.0" prefWidth="200.0">
+                     <children>
+                        <Label alignment="CENTER" text="Gewinnverteilungsrechner" textFill="#ffffffe5" underline="true">
+                           <font>
+                              <Font name="Arial Rounded MT Bold" size="30.0" />
+                           </font>
+                        </Label>
+                     </children>
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                     <padding>
+                        <Insets top="30.0" />
+                     </padding>
+                  </HBox>
+               </children>
+            </VBox>
+         </top>
+         <bottom>
+            <VBox alignment="BOTTOM_CENTER" prefHeight="100.0" prefWidth="100.0" spacing="20.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Label fx:id="errorLbl" alignment="CENTER" prefHeight="40.0" prefWidth="300.0" text="Error" textFill="WHITE">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Label>
+                  <Button fx:id="berechnenBtn" mnemonicParsing="false" onAction="#berechnen" prefHeight="45.0" prefWidth="150.0" styleClass="button-raised" stylesheets="@../../Resources/styles.css" text="Berechnen">
+                     <graphic>
+                        <ImageView fitHeight="116.0" fitWidth="38.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../Resources/calculator.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                     <effect>
+                        <DropShadow color="#4d4949" height="41.76" radius="18.835" width="35.58" />
+                     </effect>
+                  </Button>
+                  <MenuBar prefHeight="25.0" style="-fx-background-color: #9d9fab;">
+                     <menus>
+                        <Menu mnemonicParsing="false" />
+                     </menus>
+                  </MenuBar>
+               </children>
+            </VBox>
+         </bottom>
+         <center>
+            <Pane prefHeight="200.0" prefWidth="300.0" style="-fx-background-color: #40414a;" styleClass="round-pane" stylesheets="@../../Resources/styles.css" BorderPane.alignment="CENTER">
+               <children>
+                  <HBox spacing="20.0">
+                     <children>
+                        <VBox prefWidth="250.0" spacing="20.0" HBox.hgrow="ALWAYS">
+                           <children>
+                              <Label prefHeight="25.0" text="Nettogewinn" textFill="#d6d6d6">
+                                 <font>
+                                    <Font name="Arial" size="20.0" />
+                                 </font>
+                              </Label>
+                              <Label prefHeight="25.0" text="Aktienkapital" textFill="#d6d6d6">
+                                 <font>
+                                    <Font name="Arial" size="20.0" />
+                                 </font>
+                              </Label>
+                              <Label prefHeight="25.0" text="Partizipationskapital" textFill="#d6d6d6">
+                                 <font>
+                                    <Font name="Arial" size="20.0" />
+                                 </font>
+                              </Label>
+                              <Label prefHeight="25.0" text="Gesetzliche Reserven" textFill="#d6d6d6">
+                                 <font>
+                                    <Font name="Arial" size="20.0" />
+                                 </font>
+                              </Label>
+                              <Label prefHeight="25.0" text="Erfolgvortrag (+/-)" textFill="#d6d6d6">
+                                 <font>
+                                    <Font name="Arial" size="20.0" />
+                                 </font>
+                              </Label>
+                              <Label prefHeight="25.0" text="Dividende in %" textFill="#d6d6d6">
+                                 <font>
+                                    <Font name="Arial" size="20.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                           <padding>
+                              <Insets left="50.0" />
+                           </padding>
+                        </VBox>
+                        <VBox alignment="TOP_CENTER" fillWidth="false" prefWidth="150.0" spacing="20.0" HBox.hgrow="ALWAYS">
+                           <children>
+                              <TextField fx:id="erfolgTxt" />
+                              <TextField fx:id="aktienkapitalTxt" />
+                              <TextField fx:id="partizipationskapitalTxt" />
+                              <TextField fx:id="gesReservenTxt" />
+                              <TextField fx:id="erfolgvortragTxt" />
+                              <TextField fx:id="zielDividendeTxt" />
+                           </children>
+                        </VBox>
+                     </children>
+                     <padding>
+                        <Insets top="10.0" />
+                     </padding>
+                  </HBox>
+               </children>
+               <padding>
+                  <Insets top="15.0" />
+               </padding>
+               <BorderPane.margin>
+                  <Insets left="20.0" right="20.0" />
+               </BorderPane.margin>
+            </Pane>
+         </center></BorderPane>
+   </children>
+</AnchorPane>

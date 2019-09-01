@@ -5,6 +5,7 @@
  */
 package gewinnverteiler.Controller;
 
+import gewinnverteiler.SceneChanger;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -85,7 +86,7 @@ public class CalculatorController implements Initializable {
 
     @FXML
     private void berechnen(ActionEvent event) {
-        
+
         // lesen der Benutzereingaben
         erfolg = Double.valueOf(erfolgTxt.getText());
         aktienkapital = Double.valueOf(aktienkapitalTxt.getText());
@@ -121,13 +122,13 @@ public class CalculatorController implements Initializable {
                 gesReserven += zuweisungGesReserven;
                 System.out.println("1. gesetzliche Reserven: " + zuweisungGesReserven);
             }
-        } else{
+        } else {
             System.out.println("Keine Dividende, Superdividende oder Reservenzuweisung, da ein Bilanzverlust vorhanden ist.");
         }
 
         System.out.println("Gesetzliche Reserven jetzt: " + gesReserven);
 
-        double volleGrundDividende = partizipationskapital + aktienkapital / 100 * 5;
+        double volleGrundDividende = (partizipationskapital + aktienkapital) / 100 * 5;
 
         if (volleGrundDividende < bilanzerfolg) {
             bilanzerfolg -= volleGrundDividende;
@@ -144,36 +145,17 @@ public class CalculatorController implements Initializable {
         System.out.println("Zwischentotal: " + zwischenresultat);
 
         double superdividende = Math.floor(bilanzerfolg / (aktienkapital + partizipationskapital) * 0.011);
-        System.out.println("Superdividende: "  + superdividende);
+        System.out.println("Superdividende: " + superdividende);
+        SceneChanger.getInstance().loadFXML("View/Result.fxml", rootpane);
     }
 
     @FXML
     private void goToResultat(ActionEvent event) {
-        loadFXML("../Result.fxml");
-        loadFXML("View/Result.fxml");
+        SceneChanger.getInstance().loadFXML("View/Result.fxml", rootpane);
     }
 
     @FXML
     private void goToHilfe(ActionEvent event) {
-        loadFXML("...");
-    }
-
-    private void loadFXML(String name) {
-        try {
-            Stage stage = new Stage();
-            Stage oldstage = (Stage) rootpane.getScene().getWindow();
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(name));
-            Parent root = (Parent) loader.load();
-            Scene scene = new Scene(root);
-            stage.setScene(scene);
-            stage.setTitle(name);
-            stage.show();
-            oldstage.close();
-
-        } catch (IOException e) {
-            System.out.println("Can't load new window:" + name + " because of:");
-            e.printStackTrace();
-        }
     }
 
 }

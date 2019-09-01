@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.PieChart?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" fx:id="rootpane" prefHeight="800.0" prefWidth="1200.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gewinnverteiler.Controller.ResultController">
+   <children>
+      <BorderPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #343640; -fx-border-color: #40414a;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <top>
+            <VBox prefHeight="150.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+               <children>
+                  <MenuBar style="-fx-background-color: #9d9fab; -fx-border-color: #40414a;">
+                    <menus>
+                      <Menu fx:id="menuRechner" mnemonicParsing="false" onAction="#goToRechner" text="Rechner">
+                           <items>
+                              <MenuItem mnemonicParsing="false" text="Rechner zeigen" />
+                           </items></Menu>
+                      <Menu mnemonicParsing="false" text="Resultat" />
+                      <Menu fx:id="menuHilfe" mnemonicParsing="false" onAction="#goToHilfe" text="Hilfe">
+                           <items>
+                              <MenuItem mnemonicParsing="false" text="Hilfe zeigen" />
+                           </items></Menu>
+                    </menus>
+                  </MenuBar>
+                  <HBox alignment="TOP_CENTER" prefHeight="25.0" prefWidth="200.0">
+                     <padding>
+                        <Insets top="30.0" />
+                     </padding>
+                     <children>
+                        <Label alignment="CENTER" text="Gewinnverteilungsrechner" textFill="#ffffffe5" underline="true">
+                           <font>
+                              <Font name="Arial Rounded MT Bold" size="30.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+         </top>
+         <bottom>
+            <VBox alignment="BOTTOM_CENTER" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+               <children>
+                  <MenuBar style="-fx-background-color: #9d9fab; -fx-border-color: #40414a;">
+                     <menus>
+                        <Menu mnemonicParsing="false" />
+                     </menus>
+                  </MenuBar>
+               </children>
+            </VBox>
+         </bottom>
+         <center>
+            <SplitPane dividerPositions="0.5" prefHeight="160.0" prefWidth="200.0" style="-fx-background-color: #40414a;" styleClass="round-pane" stylesheets="@../../Resources/styles.css" BorderPane.alignment="CENTER">
+              <items>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefWidth="100.0">
+                     <children>
+                        <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <children>
+                              <HBox alignment="TOP_CENTER" prefHeight="35.0" prefWidth="200.0">
+                                 <children>
+                                    <Label text="Reserven" textFill="#d6d6d6" underline="true">
+                                       <font>
+                                          <Font name="Arial Narrow" size="25.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </HBox>
+                              <HBox alignment="CENTER" prefHeight="35.0" spacing="100.0">
+                                 <children>
+                                    <Label text="1. Reserve" textFill="#d6d6d6" HBox.hgrow="ALWAYS">
+                                       <font>
+                                          <Font name="Arial Narrow" size="20.0" />
+                                       </font>
+                                    </Label>
+                                    <Label text="2. Reserve" textFill="#d6d6d6" HBox.hgrow="ALWAYS">
+                                       <font>
+                                          <Font name="Arial Narrow" size="20.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </HBox>
+                              <HBox alignment="CENTER_LEFT" prefHeight="35.0" spacing="100.0">
+                                 <children>
+                                    <Label prefWidth="70.0" text="Aktuell:" textFill="#d6d6d6">
+                                       <font>
+                                          <Font name="Arial Narrow" size="20.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="aktuell1ReserveLbl" prefWidth="100.0" text="10'000" textFill="#d6d6d6">
+                                       <font>
+                                          <Font name="Arial Narrow" size="20.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="aktuell2ReserveLbl" prefWidth="100.0" text="10'000" textFill="#d6d6d6">
+                                       <font>
+                                          <Font name="Arial Narrow" size="20.0" />
+                                       </font>
+                                       <HBox.margin>
+                                          <Insets />
+                                       </HBox.margin>
+                                    </Label>
+                                 </children>
+                              </HBox>
+                              <HBox prefHeight="35.0" spacing="100.0">
+                                 <children>
+                                    <Label prefWidth="70.0" text="Ziel:" textFill="#d6d6d6">
+                                       <font>
+                                          <Font name="Arial Narrow" size="20.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="ziel1ReserveLbl" prefWidth="100.0" text="10'000" textFill="#d6d6d6">
+                                       <font>
+                                          <Font name="Arial Narrow" size="20.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="ziel2ReserveLbl" prefWidth="100.0" text="10'000" textFill="#d6d6d6">
+                                       <font>
+                                          <Font name="Arial Narrow" size="20.0" />
+                                       </font>
+                                       <HBox.margin>
+                                          <Insets />
+                                       </HBox.margin>
+                                    </Label>
+                                 </children>
+                              </HBox>
+                              <HBox prefHeight="35.0" spacing="100.0">
+                                 <children>
+                                    <Label prefWidth="70.0" text="Neu:" textFill="#d6d6d6">
+                                       <font>
+                                          <Font name="Arial Narrow" size="20.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="neu1ReserveLbl" prefWidth="100.0" text="10'500" textFill="#d6d6d6">
+                                       <font>
+                                          <Font name="Arial Narrow" size="20.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="neu2ReserveLbl" prefWidth="100.0" text="10'000" textFill="#d6d6d6">
+                                       <font>
+                                          <Font name="Arial Narrow" size="20.0" />
+                                       </font>
+                                       <HBox.margin>
+                                          <Insets />
+                                       </HBox.margin>
+                                    </Label>
+                                 </children>
+                              </HBox>
+                              <HBox prefHeight="35.0" spacing="100.0">
+                                 <children>
+                                    <PieChart fx:id="reserve1Chart" prefWidth="100.0" />
+                                    <PieChart fx:id="reserve2Chart" prefWidth="100.0" />
+                                 </children>
+                              </HBox>
+                           </children>
+                        </VBox>
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefWidth="100.0">
+                     <children>
+                        <VBox prefHeight="100.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <children>
+                              <HBox alignment="TOP_CENTER" prefHeight="35.0" prefWidth="200.0">
+                                 <children>
+                                    <Label text="Dividenden" textFill="#d6d6d6" underline="true">
+                                       <font>
+                                          <Font name="Arial Narrow" size="25.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </HBox>
+                              <HBox alignment="CENTER" prefHeight="35.0" spacing="100.0">
+                                 <children>
+                                    <Label text="Grunddividende" textFill="#d6d6d6" HBox.hgrow="ALWAYS">
+                                       <font>
+                                          <Font name="Arial Narrow" size="20.0" />
+                                       </font>
+                                    </Label>
+                                    <Label text="Superdividende" textFill="#d6d6d6" HBox.hgrow="ALWAYS">
+                                       <font>
+                                          <Font name="Arial Narrow" size="20.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </HBox>
+                              <HBox alignment="CENTER_LEFT" prefHeight="35.0" spacing="100.0">
+                                 <children>
+                                    <Label prefWidth="70.0" text="Aktuell:" textFill="#d6d6d6">
+                                       <font>
+                                          <Font name="Arial Narrow" size="20.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="aktuell1ReserveLbl1" prefWidth="100.0" text="10'000" textFill="#d6d6d6">
+                                       <font>
+                                          <Font name="Arial Narrow" size="20.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="aktuell2ReserveLbl1" prefWidth="100.0" text="10'000" textFill="#d6d6d6">
+                                       <font>
+                                          <Font name="Arial Narrow" size="20.0" />
+                                       </font>
+                                       <HBox.margin>
+                                          <Insets />
+                                       </HBox.margin>
+                                    </Label>
+                                 </children>
+                              </HBox>
+                           </children>
+                        </VBox>
+                        <VBox layoutX="10.0" layoutY="10.0" prefHeight="100.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="200.0">
+                           <children>
+                              <HBox alignment="TOP_CENTER" prefHeight="35.0" prefWidth="200.0">
+                                 <children>
+                                    <Label text="Gewinnverwendungsplan" textFill="#d6d6d6" underline="true">
+                                       <font>
+                                          <Font name="Arial Narrow" size="25.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </HBox>
+                              <HBox alignment="CENTER" prefHeight="35.0" spacing="100.0">
+                                 <children>
+                                    <Label text="Erfolg" textFill="#d6d6d6" HBox.hgrow="ALWAYS">
+                                       <font>
+                                          <Font name="Arial Narrow" size="20.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="erfolgLbl" text="0" textFill="#d6d6d6" HBox.hgrow="ALWAYS">
+                                       <font>
+                                          <Font name="Arial Narrow" size="20.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </HBox>
+                              <HBox alignment="CENTER" prefHeight="35.0" spacing="100.0">
+                                 <children>
+                                    <Label text="Erfolgvortrag" textFill="#d6d6d6" HBox.hgrow="ALWAYS">
+                                       <font>
+                                          <Font name="Arial Narrow" size="20.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="erfolgvortragWertLbl" text="0" textFill="#d6d6d6" HBox.hgrow="ALWAYS">
+                                       <font>
+                                          <Font name="Arial Narrow" size="20.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </HBox>
+                              <HBox alignment="CENTER" prefHeight="35.0" spacing="100.0">
+                                 <children>
+                                    <Label text="Grunddividende" textFill="#d6d6d6" HBox.hgrow="ALWAYS">
+                                       <font>
+                                          <Font name="Arial Narrow" size="20.0" />
+                                       </font>
+                                    </Label>
+                                    <Label text="Superdividende" textFill="#d6d6d6" HBox.hgrow="ALWAYS">
+                                       <font>
+                                          <Font name="Arial Narrow" size="20.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </HBox>
+                           </children>
+                        </VBox>
+                     </children>
+                  </AnchorPane>
+              </items>
+               <BorderPane.margin>
+                  <Insets left="15.0" right="15.0" />
+               </BorderPane.margin>
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </padding>
+            </SplitPane>
+         </center>
+      </BorderPane>
+   </children>
+</AnchorPane>
