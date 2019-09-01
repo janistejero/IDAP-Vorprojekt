@@ -11,6 +11,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 /**
@@ -18,10 +19,10 @@ import javafx.stage.Stage;
  * @author Janis Tejero
  */
 public class Main extends Application {
-    @Override
-       public void start(Stage primaryStage) throws IOException {
 
-        Parent root = FXMLLoader.load(getClass().getResource("View/Result.fxml"));
+    @Override
+    public void start(Stage primaryStage) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("View/Calculator.fxml"));
         Scene scene = new Scene(root);
         primaryStage.setResizable(false);
         primaryStage.getIcons().add(new Image("Resources/calculator.png"));
@@ -35,6 +36,5 @@ public class Main extends Application {
     public static void main(String[] args) {
         launch(args);
     }
-    
 
 }

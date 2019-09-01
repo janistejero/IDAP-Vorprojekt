@@ -5,6 +5,7 @@
  */
 package gewinnverteiler.Controller;
 
+import gewinnverteiler.SceneChanger;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -56,13 +57,13 @@ public class ResultController implements Initializable {
 
     /**
      * Initializes the controller class.
+     *
      * @param url
      * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
-        
         menuRechner.setOnAction((ActionEvent event) -> {
             goToRechner(event);
         });
@@ -83,38 +84,19 @@ public class ResultController implements Initializable {
                         new PieChart.Data("Ziel", 1000));
         reserve2Chart.getData().addAll(reserve2Data);
 
-        
     }
 
-    public void showResults(double erfolg, double vortrag, double bilanzerfolg, double reservenzuweisung,  double zwischentotal, double dividende, double superdividende, double zweitereservenzuweisung) {
+    public void showResults(double erfolg, double vortrag, double bilanzerfolg, double reservenzuweisung, double zwischentotal, double dividende, double superdividende, double zweitereservenzuweisung) {
 
     }
-    
-    
 
     @FXML
     private void goToRechner(ActionEvent event) {
-        loadFXML("Calculator.fxml");
+        SceneChanger.getInstance().loadFXML("View/Calculator.fxml", rootpane);
     }
 
     @FXML
     private void goToHilfe(ActionEvent event) {
-        loadFXML("...");
-    }
-
-    private void loadFXML(String name) {
-        try {
-            Stage stage = new Stage();
-            Stage oldstage = (Stage) rootpane.getScene().getWindow();
-            Parent root = FXMLLoader.load(getClass().getClassLoader().getResource(name));
-            stage.setScene(new Scene(root));
-            stage.setTitle(name);
-            stage.show();
-            oldstage.close();
-
-        } catch (IOException e) {
-            System.out.println("Can't load new window:" + name + " because of:");
-        }
     }
 
 }
