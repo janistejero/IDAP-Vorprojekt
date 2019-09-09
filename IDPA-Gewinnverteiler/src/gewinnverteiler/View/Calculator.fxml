@@ -19,9 +19,9 @@
 
 <AnchorPane id="AnchorPane" fx:id="rootpane" prefHeight="600.0" prefWidth="500.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gewinnverteiler.Controller.CalculatorController">
    <children>
-      <BorderPane prefHeight="600.0" prefWidth="500.0" style="-fx-background-color: #343640; -fx-border-color: #40414a;">
+      <BorderPane prefHeight="600.0" prefWidth="500.0" style="-fx-background-color: #343640; -fx-border-color: #40414a;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <top>
-            <VBox prefHeight="150.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+            <VBox prefHeight="150.0" BorderPane.alignment="CENTER">
                <children>
                   <MenuBar style="-fx-background-color: #9d9fab;">
                     <menus>
@@ -55,7 +55,7 @@
             </VBox>
          </top>
          <bottom>
-            <VBox alignment="BOTTOM_CENTER" prefHeight="100.0" prefWidth="100.0" spacing="20.0" BorderPane.alignment="CENTER">
+            <VBox alignment="BOTTOM_CENTER" prefHeight="100.0" spacing="20.0" BorderPane.alignment="CENTER">
                <children>
                   <Label fx:id="errorLbl" alignment="CENTER" prefHeight="40.0" prefWidth="300.0" text="Error" textFill="WHITE">
                      <font>
@@ -86,13 +86,13 @@
             </VBox>
          </bottom>
          <center>
-            <Pane prefHeight="200.0" prefWidth="300.0" style="-fx-background-color: #40414a;" styleClass="round-pane" stylesheets="@../../Resources/styles.css" BorderPane.alignment="CENTER">
+            <Pane prefHeight="200.0" style="-fx-background-color: #40414a;" styleClass="round-pane" stylesheets="@../../Resources/styles.css" BorderPane.alignment="CENTER">
                <children>
                   <HBox spacing="20.0">
                      <children>
                         <VBox prefWidth="250.0" spacing="20.0" HBox.hgrow="ALWAYS">
                            <children>
-                              <Label prefHeight="25.0" text="Nettogewinn" textFill="#d6d6d6">
+                              <Label prefHeight="25.0" text="Jahreserfolg (+/-)" textFill="#d6d6d6">
                                  <font>
                                     <Font name="Arial" size="20.0" />
                                  </font>

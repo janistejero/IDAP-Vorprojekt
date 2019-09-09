@@ -10,6 +10,7 @@ import java.io.IOException;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
@@ -39,6 +40,8 @@ public class SceneChanger {
             root = FXMLLoader.load(getClass().getResource(name));
             stage.setScene(new Scene(root));
             stage.setTitle(name);
+            stage.setResizable(false);
+            stage.getIcons().add(new Image("Resources/calculator.png"));
             stage.show();
             oldstage.close();
         } catch (IOException e) {

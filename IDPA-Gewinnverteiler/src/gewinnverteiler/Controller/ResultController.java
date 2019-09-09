@@ -6,6 +6,7 @@
 package gewinnverteiler.Controller;
 
 import gewinnverteiler.SceneChanger;
+import gewinnverteiler.ValueHolder;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
@@ -17,6 +18,8 @@ import javafx.scene.chart.PieChart;
 import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 
 /**
  * FXML Controller class
@@ -48,10 +51,6 @@ public class ResultController implements Initializable {
     @FXML
     private PieChart reserve2Chart;
     @FXML
-    private Label aktuellGrunddividendeLbl;
-    @FXML
-    private Label aktuellSuperdividendeLbl;
-    @FXML
     private Label erfolgLbl;
     @FXML
     private Label erfolgWertLbl;
@@ -60,13 +59,10 @@ public class ResultController implements Initializable {
     @FXML
     private Label erfolgvortragWertLbl;
     @FXML
-    private Label grunddividendeLbl;
-    @FXML
     private Label grunddividendeWertLbl;
     @FXML
     private Label superdividendeLbl;
     @FXML
-    private Label superdividendeWertLbl1;
     private Label bilanzerfolgLbl;
     @FXML
     private Label bilanzerfolgWertLbl;
@@ -76,6 +72,38 @@ public class ResultController implements Initializable {
     private Label grunddividendeWertLbl2;
     @FXML
     private Label superdividendeWertLbl2;
+    @FXML
+    private Label superdividendeWertLbl;
+    @FXML
+    private Label verwendungsplanLbl;
+    @FXML
+    private HBox grunddividendeHBox;
+    @FXML
+    private HBox superdividendeHBox;
+    @FXML
+    private HBox erstesZwischentotalHBox;
+    @FXML
+    private HBox zweiteGesReservenHBox;
+    @FXML
+    private HBox zweitesZwischentotalHBox;
+    @FXML
+    private VBox verwendungsplanVBox;
+    @FXML
+    private Label neuerErfolgvortragLbl;
+    @FXML
+    private Label neuerErfolgvortragWertLbl;
+    @FXML
+    private Label ersteGesReserveLbl;
+    @FXML
+    private Label neu1ReserveWertLbl;
+    @FXML
+    private Label zwischentotalWertLbl1;
+    @FXML
+    private Label zwischentotalWertLbl2;
+    @FXML
+    private Label zweiteGesReserveLbl;
+    @FXML
+    private Label neu2ReserveWertLbl;
 
     /**
      * Initializes the controller class.
@@ -106,16 +134,79 @@ public class ResultController implements Initializable {
                         new PieChart.Data("Ziel", 1000));
         reserve2Chart.getData().addAll(reserve2Data);
 
+        showResults();
     }
 
-    public void showResults(double erfolg, double vortrag, double bilanzerfolg, double reservenzuweisung, double zwischentotal, double dividende, double superdividende, double zweitereservenzuweisung) {
-        erfolgLbl.setText(String.valueOf(erfolg));
-        if(vortrag > 0){
-            erfolgVortragLbl.setText("Gewinnvortrag");
-        } else{
-            erfolgVortragLbl.setText("Verlustvortrag");
+    public void showResults() {
+
+        // erste Reserve
+        aktuell1ReserveLbl.setText(String.valueOf(ValueHolder.getInstance().getAktuell1Reserve()));
+        ziel1ReserveLbl.setText(String.valueOf(ValueHolder.getInstance().getZiel1Reserve()));
+        neu1ReserveLbl.setText(String.valueOf(ValueHolder.getInstance().getNeu1Reserve()));
+
+        // zweite Reserve und Superdividende
+        if (ValueHolder.getInstance().getSuperdividendeAusschuettung()) {
+            aktuell2ReserveLbl.setText(String.valueOf(ValueHolder.getInstance().getAktuell2Reserve()));
+            ziel2ReserveLbl.setText(String.valueOf(ValueHolder.getInstance().getSuperdividende()));
+            superdividendeWertLbl.setText(String.valueOf(ValueHolder.getInstance().getSuperdividende()));
+            superdividendeWertLbl2.setText(String.valueOf(ValueHolder.getInstance().getSuperdividende()));
+        } else {
+            aktuell2ReserveLbl.setText("---");
+            ziel2ReserveLbl.setText("---");
+            neu2ReserveLbl.setText("---");
+            superdividendeWertLbl.setText("---");
+            verwendungsplanVBox.getChildren().remove(superdividendeHBox);
         }
-        erfolgvortragWertLbl.setText(String.valueOf(vortrag));
+
+        // Grunddividende
+        if (ValueHolder.getInstance().getDividendenAusschuettung()) {
+            grunddividendeWertLbl.setText(String.valueOf(ValueHolder.getInstance().getGrunddividende()));
+            grunddividendeWertLbl2.setText(String.valueOf(ValueHolder.getInstance().getGrunddividende()));
+        } else {
+            grunddividendeWertLbl.setText("---");
+            verwendungsplanVBox.getChildren().remove(grunddividendeHBox);
+        }
+
+        // Verwendungsplan
+        if (ValueHolder.getInstance().getNeuererfolgvortag() > 0) {
+            verwendungsplanLbl.setText("Gewinnverwendungsplan");
+        } else {
+            verwendungsplanLbl.setText("Verlustverrechnungsplan");
+        }
+
+        // erfolg
+        if (ValueHolder.getInstance().getErfolg() > 0) {
+            erfolgLbl.setText("Jahresgewinn");
+        } else {
+            erfolgLbl.setText("Jahresverlust");
+        }
+
+        // erfolgvortrag
+        if (ValueHolder.getInstance().getErfolgvortrag() > 0) {
+            erfolgvortragLbl.setText("Gewinnvortrag");
+        } else {
+            erfolgvortragLbl.setText("Verlustvortrag");
+        }
+        erfolgvortragWertLbl.setText(String.valueOf(ValueHolder.getInstance().getErfolgvortrag()));
+
+        // bilanzerfolg
+        if (ValueHolder.getInstance().getBilanzerfolg() > 0) {
+            bilanzerfolgLbl.setText("Bilanzgewinn");
+        } else {
+            bilanzerfolgLbl.setText("Bilanzerfolg");
+        }
+
+        // prüfe auf Bilanzverlust
+        if (ValueHolder.getInstance().getBilanzerfolg() < 0) {
+            verwendungsplanVBox.getChildren().remove(erstesZwischentotalHBox);
+            verwendungsplanVBox.getChildren().remove(grunddividendeHBox);
+            verwendungsplanVBox.getChildren().remove(zweitesZwischentotalHBox);
+            verwendungsplanVBox.getChildren().remove(superdividendeHBox);
+            verwendungsplanVBox.getChildren().remove(zweiteGesReservenHBox);
+        }
+
+        // erste gesetzliche Reserve
+        
     }
 
     @FXML

@@ -6,6 +6,7 @@
 package gewinnverteiler.Controller;
 
 import gewinnverteiler.SceneChanger;
+import gewinnverteiler.ValueHolder;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -23,7 +24,7 @@ import javafx.scene.layout.AnchorPane;
  * @author Janis Tejero
  */
 public class CalculatorController implements Initializable {
-
+    
     @FXML
     private Button berechnenBtn;
     @FXML
@@ -62,93 +63,170 @@ public class CalculatorController implements Initializable {
     private double erfolgvortrag;
     private double gewuenschteDividende;
     private double dividende;
+    private double zweiteGesReservenZuweisung;
+    private double superdividende;
+    private int emptyCounter = 0;
     private boolean dividendenAusschuettung = true;
-
+    private boolean superdividendeAusschuettung = false;
+    private boolean validInput = false;
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         //errorLbl.setVisible(false);
         erfolgTxt.setText("10000");
         aktienkapitalTxt.setText("100000");
-        partizipationskapitalTxt.setText("10000");
+        partizipationskapitalTxt.setText("0");
         gesReservenTxt.setText("10000");
         erfolgvortragTxt.setText("10000");
         zielDividendeTxt.setText("5");
     }
-
+    
     @FXML
     private void berechnen(ActionEvent event) {
 
-        // lesen der Benutzereingaben
-        erfolg = Double.valueOf(erfolgTxt.getText());
-        aktienkapital = Double.valueOf(aktienkapitalTxt.getText());
-        partizipationskapital = Double.valueOf(partizipationskapitalTxt.getText());
-        gesReserven = Double.valueOf(gesReservenTxt.getText());
-        erfolgvortrag = Double.valueOf(erfolgvortragTxt.getText());
-        gewuenschteDividende = Double.valueOf(zielDividendeTxt.getText());
-
-        if (aktienkapital < 0 || aktienkapital == 0) {
+        // form validation
+        if (erfolgTxt.getText().isEmpty() || partizipationskapitalTxt.getText().isEmpty() || gesReservenTxt.getText().isEmpty() || zielDividendeTxt.getText().isEmpty()) {
+            errorLbl.setText("Feld Erfolg kann nicht leer sein.");
+            emptyCounter++;
         }
-
-        // verrechnung erfolg mit vortrag
-        bilanzerfolg = erfolg + erfolgvortrag;
-
-        erforderlicheReserve = ((aktienkapital + partizipationskapital) / 100) * 20;
-        System.out.println("Bilanzerfolg: " + bilanzerfolg);
-
-        // ausgleich mit reserven
-        if (bilanzerfolg < 0 && gesReserven > bilanzerfolg) {
-            gesReserven += bilanzerfolg;
-            bilanzerfolg = 0;
-            dividende = 0;
-            dividendenAusschuettung = false;
+        if (aktienkapitalTxt.getText().isEmpty()) {
+            errorLbl.setText("Feld Aktienkapital kann nicht leer sein.");
+            emptyCounter++;
         }
-
-        if (dividendenAusschuettung) {
-            if (gesReserven < erforderlicheReserve) {
-                double zuweisungGesReserven = erfolg / 100 * 5;
-                if (zuweisungGesReserven < 1) {
-                    zuweisungGesReserven = 0;
-                }
-                bilanzerfolg -= zuweisungGesReserven;
-                gesReserven += zuweisungGesReserven;
-                System.out.println("1. gesetzliche Reserven: " + zuweisungGesReserven);
-            }
+        
+        if (partizipationskapitalTxt.getText().isEmpty()) {
+            errorLbl.setText("Feld Partizipationskapital kann nicht leer sein.");
+            emptyCounter++;
+        }
+        
+        if (gesReservenTxt.getText().isEmpty()) {
+            errorLbl.setText("Feld Gesetzliche Reserve kann nicht leer sein.");
+            emptyCounter++;
+        }
+        
+        if (zielDividendeTxt.getText().isEmpty()) {
+            errorLbl.setText("Feld Ziel Dividende kann nicht leer sein.");
+            emptyCounter++;
+        }
+        
+        if (emptyCounter > 1) {
+            errorLbl.setText("Bitte die leeren Felder ausfüllen");
+        }
+        
+        if (emptyCounter > 0) {
+            validInput = false;
         } else {
-            System.out.println("Keine Dividende, Superdividende oder Reservenzuweisung, da ein Bilanzverlust vorhanden ist.");
+            validInput = true;
         }
 
-        System.out.println("Gesetzliche Reserven jetzt: " + gesReserven);
+        // Berechnung nur starten wenn Eingaben valide sind
+        if (validInput) {
+            // lesen der Benutzereingaben
+            erfolg = Double.valueOf(erfolgTxt.getText());
+            aktienkapital = Double.valueOf(aktienkapitalTxt.getText());
+            partizipationskapital = Double.valueOf(partizipationskapitalTxt.getText());
+            gesReserven = Double.valueOf(gesReservenTxt.getText());
+            erfolgvortrag = Double.valueOf(erfolgvortragTxt.getText());
+            gewuenschteDividende = Double.valueOf(zielDividendeTxt.getText());
 
-        double volleGrundDividende = (partizipationskapital + aktienkapital) / 100 * 5;
+            // verrechnung erfolg mit vortrag
+            bilanzerfolg = erfolg + erfolgvortrag;
+            
+            erforderlicheReserve = ((aktienkapital + partizipationskapital) / 100) * 20;
+            System.out.println("Bilanzerfolg: " + bilanzerfolg);
 
-        if (volleGrundDividende < bilanzerfolg) {
-            bilanzerfolg -= volleGrundDividende;
-            dividende = volleGrundDividende;
-            zwischenresultat = bilanzerfolg;
-        } else if (volleGrundDividende > bilanzerfolg) {
-            dividende = Math.floor(bilanzerfolg / (aktienkapital + partizipationskapital) * 100);
-            dividende = ((aktienkapital + partizipationskapital) / 100) * dividende;
-            bilanzerfolg -= dividende;
-            zwischenresultat = bilanzerfolg;
+            // ausgleich mit reserven
+            if (bilanzerfolg < 0 && gesReserven > bilanzerfolg) {
+                gesReserven += bilanzerfolg;
+                bilanzerfolg = 0;
+                dividende = 0;
+                dividendenAusschuettung = false;
+            }
+            
+            ValueHolder.getInstance().setBilanzerfolg(bilanzerfolg);
+            
+            if (dividendenAusschuettung) {
+                if (gesReserven < erforderlicheReserve) {
+                    double zuweisungGesReserven = erfolg / 100 * 5;
+                    if (zuweisungGesReserven < 1) {
+                        zuweisungGesReserven = 0;
+                    }
+                    bilanzerfolg -= zuweisungGesReserven;
+                    gesReserven += zuweisungGesReserven;
+                    System.out.println("An 1. gesetzliche Reserven: " + zuweisungGesReserven);
+                }
+            } else {
+                System.out.println("Keine Dividende, Superdividende oder Reservenzuweisung, da ein Bilanzverlust vorhanden ist.");
+            }
+            
+            System.out.println("Gesetzliche Reserven jetzt: " + gesReserven);
+            
+            double volleGrundDividende = (partizipationskapital + aktienkapital) / 100 * 5;
 
+            
+            
+            
+            // 5% grösser als der bilanzerfolg *nach verrechnung* der gesetzlichen zuweisung
+            if (volleGrundDividende < bilanzerfolg) {
+                bilanzerfolg -= volleGrundDividende;
+                dividende = volleGrundDividende;
+                zwischenresultat = bilanzerfolg;
+                superdividendeAusschuettung = true;
+            } else if (volleGrundDividende > bilanzerfolg) {
+                dividende = Math.floor(bilanzerfolg / (aktienkapital + partizipationskapital) * 100); // in Prozenten
+                dividende = ((aktienkapital + partizipationskapital) / 100) * dividende; // in Franken
+                bilanzerfolg -= dividende;
+                zwischenresultat = bilanzerfolg;
+            }
+            
+            if (superdividendeAusschuettung) {
+                superdividende = Math.floor(bilanzerfolg / (aktienkapital + partizipationskapital) * 0.011);
+                zweiteGesReservenZuweisung = (superdividende / 100) * 10;
+                ValueHolder.getInstance().setZwischenresultat(zwischenresultat);
+                zwischenresultat -= superdividende;
+                zwischenresultat -= zweiteGesReservenZuweisung;
+            }
+            
+            System.out.println("Dividende: " + dividende);
+            System.out.println("Zwischentotal: " + zwischenresultat);
+            System.out.println("Superdividende: " + superdividende);
+            
+            // Zum ValueHolder schreiben
+            updateValues();
+            
+            // weiterleitung zur Resultatseite
+            SceneChanger.getInstance().loadFXML("View/Result.fxml", rootpane);
         }
-        System.out.println("Dividende: " + dividende);
-        System.out.println("Zwischentotal: " + zwischenresultat);
-
-        double superdividende = Math.floor(bilanzerfolg / (aktienkapital + partizipationskapital) * 0.011);
-        System.out.println("Superdividende: " + superdividende);
-        SceneChanger.getInstance().loadFXML("View/Result.fxml", rootpane);
     }
-
+    
+    private void updateValues() {
+        ValueHolder.getInstance().setAktienkapital(aktienkapital);
+        ValueHolder.getInstance().setErfolg(erfolg);
+        ValueHolder.getInstance().setPartizipationskapital(partizipationskapital);
+        ValueHolder.getInstance().setAktuell1Reserve(Double.valueOf(gesReservenTxt.getText()));
+        ValueHolder.getInstance().setErfolgvortrag(erfolgvortrag);
+        ValueHolder.getInstance().setGrunddividende(dividende);
+        ValueHolder.getInstance().setSuperdividende(superdividende);
+        ValueHolder.getInstance().setAktuell2Reserve(0);
+        ValueHolder.getInstance().setZiel1Reserve(((aktienkapital + partizipationskapital) / 100) * 20);
+        ValueHolder.getInstance().setErforderlicheReserve(((aktienkapital + partizipationskapital) / 100) * 20);
+        ValueHolder.getInstance().setNeuererfolgvortag(zwischenresultat);
+        ValueHolder.getInstance().setReservenzuweisung(reservenzuweisung);
+        ValueHolder.getInstance().setNeu1Reserve(gesReserven);
+        ValueHolder.getInstance().setNeu2Reserve(zweiteGesReservenZuweisung);
+        ValueHolder.getInstance().setGewuenschteDividende(gewuenschteDividende);
+        ValueHolder.getInstance().setSuperdividendeAusschuettung(superdividendeAusschuettung);
+        ValueHolder.getInstance().setDividendenAusschuettung(dividendenAusschuettung);
+    }
+    
     @FXML
     private void goToResultat(ActionEvent event) {
         SceneChanger.getInstance().loadFXML("View/Result.fxml", rootpane);
     }
-
+    
     @FXML
     private void goToHilfe(ActionEvent event) {
         
     }
-
     
 }
