@@ -188,21 +188,21 @@
                               </HBox>
                               <HBox alignment="CENTER" prefHeight="35.0" spacing="100.0">
                                  <children>
-                                    <Label text="Grunddividende" textFill="#d6d6d6" HBox.hgrow="ALWAYS">
+                                    <Label prefWidth="150.0" text="Grunddividende" textFill="#d6d6d6" HBox.hgrow="ALWAYS">
                                        <font>
                                           <Font name="Arial Narrow" size="20.0" />
                                        </font>
                                     </Label>
-                                    <Label text="Superdividende" textFill="#d6d6d6" HBox.hgrow="ALWAYS">
+                                    <Label prefWidth="150.0" text="Superdividende" textFill="#d6d6d6" HBox.hgrow="ALWAYS">
                                        <font>
                                           <Font name="Arial Narrow" size="20.0" />
                                        </font>
                                     </Label>
                                  </children>
                               </HBox>
-                              <HBox alignment="CENTER_LEFT" prefHeight="35.0" spacing="100.0">
+                              <HBox alignment="CENTER" prefHeight="35.0" spacing="100.0">
                                  <children>
-                                    <Label prefWidth="70.0" text="Aktuell:" textFill="#d6d6d6">
+                                    <Label fx:id="grunddividendeWertLbl" prefWidth="150.0" text="10'000" textFill="#d6d6d6">
                                        <font>
                                           <Font name="Arial Narrow" size="20.0" />
                                        </font>
@@ -213,6 +213,7 @@
                                        </font>
                                     </Label>
                                     <Label fx:id="aktuellSuperdividendeLbl" prefWidth="100.0" text="10'000" textFill="#d6d6d6">
+                                    <Label fx:id="superdividendeWertLbl" prefWidth="150.0" text="10'000" textFill="#d6d6d6">
                                        <font>
                                           <Font name="Arial Narrow" size="20.0" />
                                        </font>
@@ -241,11 +242,13 @@
                               <HBox alignment="CENTER" prefHeight="35.0" spacing="100.0">
                                  <children>
                                     <Label fx:id="erfolgLbl" prefWidth="130.0" text="Erfolg" textFill="#d6d6d6" HBox.hgrow="ALWAYS">
+                                    <Label fx:id="erfolgLbl" prefWidth="150.0" text="Erfolg" textFill="#d6d6d6" HBox.hgrow="ALWAYS">
                                        <font>
                                           <Font name="Arial Narrow" size="20.0" />
                                        </font>
                                     </Label>
                                     <Label fx:id="erfolgWertLbl" prefWidth="80.0" text="10'000" textFill="#d6d6d6" HBox.hgrow="ALWAYS">
+                                    <Label fx:id="erfolgWertLbl" text="0" textFill="#d6d6d6" HBox.hgrow="ALWAYS">
                                        <font>
                                           <Font name="Arial Narrow" size="20.0" />
                                        </font>
@@ -255,6 +258,7 @@
                               <HBox alignment="CENTER" prefHeight="35.0" spacing="100.0">
                                  <children>
                                     <Label fx:id="erfolgvortragLbl" prefWidth="130.0" text="Erfolgvortrag" textFill="#d6d6d6" HBox.hgrow="ALWAYS">
+                                    <Label fx:id="erfolgvortragLbl" prefWidth="150.0" text="Erfolgvortrag" textFill="#d6d6d6" HBox.hgrow="ALWAYS">
                                        <font>
                                           <Font name="Arial Narrow" size="20.0" />
                                        </font>
@@ -269,11 +273,13 @@
                               <HBox alignment="CENTER" prefHeight="35.0" spacing="100.0">
                                  <children>
                                     <Label fx:id="grunddividendeLbl" prefWidth="130.0" text="Grunddividende" textFill="#d6d6d6" HBox.hgrow="ALWAYS">
+                                    <Label fx:id="bilanzerfolgLbl" prefWidth="150.0" text="Bilanzerfolg" textFill="#d6d6d6" HBox.hgrow="ALWAYS">
                                        <font>
                                           <Font name="Arial Narrow" size="20.0" />
                                        </font>
                                     </Label>
                                     <Label fx:id="grunddividendeWertLbl" prefWidth="80.0" text="5'000" textFill="#d6d6d6" HBox.hgrow="ALWAYS">
+                                    <Label fx:id="bilanzerfolgWertLbl" text="0" textFill="#d6d6d6">
                                        <font>
                                           <Font name="Arial Narrow" size="20.0" />
                                        </font>
@@ -283,11 +289,27 @@
                               <HBox alignment="CENTER" prefHeight="35.0" spacing="100.0">
                                  <children>
                                     <Label fx:id="superdividendeLbl" prefWidth="130.0" text="Superdividende" textFill="#d6d6d6" HBox.hgrow="ALWAYS">
+                                    <Label fx:id="grundivididendeLbl" prefWidth="150.0" text="Grunddividende" textFill="#d6d6d6" HBox.hgrow="ALWAYS">
                                        <font>
                                           <Font name="Arial Narrow" size="20.0" />
                                        </font>
                                     </Label>
                                     <Label fx:id="superdividendeWertLbl1" prefWidth="80.0" text="2'500" textFill="#d6d6d6">
+                                    <Label fx:id="grunddividendeWertLbl2" text="0" textFill="#d6d6d6">
+                                       <font>
+                                          <Font name="Arial Narrow" size="20.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </HBox>
+                              <HBox alignment="CENTER" prefHeight="35.0" spacing="100.0">
+                                 <children>
+                                    <Label fx:id="superdividendeLbl" prefWidth="150.0" text="Superdividende" textFill="#d6d6d6" HBox.hgrow="ALWAYS">
+                                       <font>
+                                          <Font name="Arial Narrow" size="20.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="superdividendeWertLbl2" text="0" textFill="#d6d6d6">
                                        <font>
                                           <Font name="Arial Narrow" size="20.0" />
                                        </font>
@@ -299,6 +321,7 @@
                      </children>
                      <padding>
                         <Insets left="10.0" />
+                        <Insets left="5.0" />
                      </padding>
                   </AnchorPane>
               </items>

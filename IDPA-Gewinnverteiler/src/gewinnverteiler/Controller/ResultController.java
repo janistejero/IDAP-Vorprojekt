@@ -5,24 +5,18 @@
  */
 package gewinnverteiler.Controller;
 
-import java.io.IOException;
+import gewinnverteiler.SceneChanger;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.Event;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.layout.AnchorPane;
-import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -73,16 +67,25 @@ public class ResultController implements Initializable {
     private Label superdividendeLbl;
     @FXML
     private Label superdividendeWertLbl1;
+    private Label bilanzerfolgLbl;
+    @FXML
+    private Label bilanzerfolgWertLbl;
+    @FXML
+    private Label grundivididendeLbl;
+    @FXML
+    private Label grunddividendeWertLbl2;
+    @FXML
+    private Label superdividendeWertLbl2;
 
     /**
      * Initializes the controller class.
+     *
      * @param url
      * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
-        
         menuRechner.setOnAction((ActionEvent event) -> {
             goToRechner(event);
         });
@@ -103,38 +106,25 @@ public class ResultController implements Initializable {
                         new PieChart.Data("Ziel", 1000));
         reserve2Chart.getData().addAll(reserve2Data);
 
-        
     }
 
-    public void showResults(double erfolg, double vortrag, double bilanzerfolg, double reservenzuweisung,  double zwischentotal, double dividende, double superdividende, double zweitereservenzuweisung) {
-
+    public void showResults(double erfolg, double vortrag, double bilanzerfolg, double reservenzuweisung, double zwischentotal, double dividende, double superdividende, double zweitereservenzuweisung) {
+        erfolgLbl.setText(String.valueOf(erfolg));
+        if(vortrag > 0){
+            erfolgVortragLbl.setText("Gewinnvortrag");
+        } else{
+            erfolgVortragLbl.setText("Verlustvortrag");
+        }
+        erfolgvortragWertLbl.setText(String.valueOf(vortrag));
     }
-    
-    
 
     @FXML
     private void goToRechner(ActionEvent event) {
-        loadFXML("Calculator.fxml");
+        SceneChanger.getInstance().loadFXML("View/Calculator.fxml", rootpane);
     }
 
     @FXML
     private void goToHilfe(ActionEvent event) {
-        loadFXML("...");
-    }
-
-    private void loadFXML(String name) {
-        try {
-            Stage stage = new Stage();
-            Stage oldstage = (Stage) rootpane.getScene().getWindow();
-            Parent root = FXMLLoader.load(getClass().getClassLoader().getResource(name));
-            stage.setScene(new Scene(root));
-            stage.setTitle(name);
-            stage.show();
-            oldstage.close();
-
-        } catch (IOException e) {
-            System.out.println("Can't load new window:" + name + " because of:");
-        }
     }
 
 }
