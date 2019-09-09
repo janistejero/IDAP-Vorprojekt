@@ -48,15 +48,31 @@ public class ResultController implements Initializable {
     @FXML
     private PieChart reserve2Chart;
     @FXML
-    private Label aktuell1ReserveLbl1;
-    @FXML
-    private Label aktuell2ReserveLbl1;
-    @FXML
     private Label erfolgLbl;
     @FXML
     private Label erfolgvortragWertLbl;
     @FXML
     private Label erfolgVortragLbl;
+    @FXML
+    private Label grunddividendeWertLbl;
+    @FXML
+    private Label superdividendeWertLbl;
+    @FXML
+    private Label erfolgWertLbl;
+    @FXML
+    private Label erfolgvortragLbl;
+    @FXML
+    private Label bilanzerfolgLbl;
+    @FXML
+    private Label bilanzerfolgWertLbl;
+    @FXML
+    private Label grundivididendeLbl;
+    @FXML
+    private Label grunddividendeWertLbl2;
+    @FXML
+    private Label superdividendeLbl;
+    @FXML
+    private Label superdividendeWertLbl2;
 
     /**
      * Initializes the controller class.
@@ -97,9 +113,6 @@ public class ResultController implements Initializable {
             erfolgVortragLbl.setText("Verlustvortrag");
         }
         erfolgvortragWertLbl.setText(String.valueOf(vortrag));
-        
-        
-        
     }
 
     @FXML
