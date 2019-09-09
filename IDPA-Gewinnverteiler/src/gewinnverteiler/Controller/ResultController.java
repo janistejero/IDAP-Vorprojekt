@@ -53,6 +53,26 @@ public class ResultController implements Initializable {
     private PieChart reserve1Chart;
     @FXML
     private PieChart reserve2Chart;
+    @FXML
+    private Label aktuellGrunddividendeLbl;
+    @FXML
+    private Label aktuellSuperdividendeLbl;
+    @FXML
+    private Label erfolgLbl;
+    @FXML
+    private Label erfolgWertLbl;
+    @FXML
+    private Label erfolgvortragLbl;
+    @FXML
+    private Label erfolgvortragWertLbl;
+    @FXML
+    private Label grunddividendeLbl;
+    @FXML
+    private Label grunddividendeWertLbl;
+    @FXML
+    private Label superdividendeLbl;
+    @FXML
+    private Label superdividendeWertLbl1;
 
     /**
      * Initializes the controller class.
