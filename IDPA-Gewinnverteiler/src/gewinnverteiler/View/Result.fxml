@@ -242,7 +242,7 @@
                               </HBox>
                               <HBox alignment="CENTER" prefHeight="35.0" spacing="100.0">
                                  <children>
-                                    <Label text="Erfolgvortrag" textFill="#d6d6d6" HBox.hgrow="ALWAYS">
+                                    <Label fx:id="erfolgVortragLbl" text="Erfolgvortrag" textFill="#d6d6d6" HBox.hgrow="ALWAYS">
                                        <font>
                                           <Font name="Arial Narrow" size="20.0" />
                                        </font>

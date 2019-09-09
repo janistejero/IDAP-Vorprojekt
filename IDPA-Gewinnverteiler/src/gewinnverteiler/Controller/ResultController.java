@@ -6,24 +6,17 @@
 package gewinnverteiler.Controller;
 
 import gewinnverteiler.SceneChanger;
-import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.Event;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.layout.AnchorPane;
-import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -54,6 +47,16 @@ public class ResultController implements Initializable {
     private PieChart reserve1Chart;
     @FXML
     private PieChart reserve2Chart;
+    @FXML
+    private Label aktuell1ReserveLbl1;
+    @FXML
+    private Label aktuell2ReserveLbl1;
+    @FXML
+    private Label erfolgLbl;
+    @FXML
+    private Label erfolgvortragWertLbl;
+    @FXML
+    private Label erfolgVortragLbl;
 
     /**
      * Initializes the controller class.
@@ -87,7 +90,16 @@ public class ResultController implements Initializable {
     }
 
     public void showResults(double erfolg, double vortrag, double bilanzerfolg, double reservenzuweisung, double zwischentotal, double dividende, double superdividende, double zweitereservenzuweisung) {
-
+        erfolgLbl.setText(String.valueOf(erfolg));
+        if(vortrag > 0){
+            erfolgVortragLbl.setText("Gewinnvortrag");
+        } else{
+            erfolgVortragLbl.setText("Verlustvortrag");
+        }
+        erfolgvortragWertLbl.setText(String.valueOf(vortrag));
+        
+        
+        
     }
 
     @FXML
