@@ -61,7 +61,7 @@
          <center>
             <SplitPane dividerPositions="0.5" prefHeight="160.0" prefWidth="200.0" style="-fx-background-color: #40414a;" styleClass="round-pane" stylesheets="@../../Resources/styles.css" BorderPane.alignment="CENTER">
               <items>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefWidth="100.0">
+                <AnchorPane minHeight="0.0" minWidth="570.0" prefWidth="100.0">
                      <children>
                         <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
@@ -171,7 +171,7 @@
                         </VBox>
                      </children>
                   </AnchorPane>
-                  <AnchorPane minHeight="0.0" minWidth="0.0" prefWidth="100.0">
+                  <AnchorPane minHeight="0.0" minWidth="570.0" prefWidth="100.0">
                      <children>
                         <VBox prefHeight="100.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
@@ -241,7 +241,7 @@
                                           <Font name="Arial Narrow" size="20.0" />
                                        </font>
                                     </Label>
-                                    <Label fx:id="erfolgWertLbl" minWidth="80.0" text="0" textFill="#d6d6d6" HBox.hgrow="ALWAYS">
+                                    <Label fx:id="erfolgWertLbl" alignment="CENTER_RIGHT" minWidth="80.0" text="0" textFill="#d6d6d6" HBox.hgrow="ALWAYS">
                                        <font>
                                           <Font name="Arial Narrow" size="20.0" />
                                        </font>
@@ -255,7 +255,7 @@
                                           <Font name="Arial Narrow" size="20.0" />
                                        </font>
                                     </Label>
-                                    <Label fx:id="erfolgvortragWertLbl" minWidth="80.0" text="0" textFill="#d6d6d6" HBox.hgrow="ALWAYS">
+                                    <Label fx:id="erfolgvortragWertLbl" alignment="CENTER_RIGHT" minWidth="80.0" text="0" textFill="#d6d6d6" HBox.hgrow="ALWAYS">
                                        <font>
                                           <Font name="Arial Narrow" size="20.0" />
                                        </font>
@@ -269,7 +269,7 @@
                                           <Font name="Arial Narrow" size="20.0" />
                                        </font>
                                     </Label>
-                                    <Label fx:id="bilanzerfolgWertLbl" minWidth="80.0" text="0" textFill="#d6d6d6">
+                                    <Label fx:id="bilanzerfolgWertLbl" alignment="CENTER_RIGHT" minWidth="80.0" text="0" textFill="#d6d6d6">
                                        <font>
                                           <Font name="Arial Narrow" size="20.0" />
                                        </font>
@@ -283,7 +283,7 @@
                                           <Font name="Arial Narrow" size="20.0" />
                                        </font>
                                     </Label>
-                                    <Label fx:id="neu1ReserveWertLbl" minWidth="80.0" text="0" textFill="#d6d6d6">
+                                    <Label fx:id="neu1ReserveWertLbl" alignment="CENTER_RIGHT" minWidth="80.0" text="0" textFill="#d6d6d6">
                                        <font>
                                           <Font name="Arial Narrow" size="20.0" />
                                        </font>
@@ -297,7 +297,7 @@
                                           <Font name="Arial Narrow" size="20.0" />
                                        </font>
                                     </Label>
-                                    <Label fx:id="zwischentotalWertLbl1" minWidth="80.0" text="0" textFill="#d6d6d6">
+                                    <Label fx:id="zwischentotalWertLbl1" alignment="CENTER_RIGHT" minWidth="80.0" text="0" textFill="#d6d6d6">
                                        <font>
                                           <Font name="Arial Narrow" size="20.0" />
                                        </font>
@@ -311,7 +311,7 @@
                                           <Font name="Arial Narrow" size="20.0" />
                                        </font>
                                     </Label>
-                                    <Label fx:id="grunddividendeWertLbl2" minWidth="80.0" text="0" textFill="#d6d6d6">
+                                    <Label fx:id="grunddividendeWertLbl2" alignment="CENTER_RIGHT" minWidth="80.0" text="0" textFill="#d6d6d6">
                                        <font>
                                           <Font name="Arial Narrow" size="20.0" />
                                        </font>
@@ -325,7 +325,7 @@
                                           <Font name="Arial Narrow" size="20.0" />
                                        </font>
                                     </Label>
-                                    <Label fx:id="zwischentotalWertLbl2" minWidth="80.0" text="0" textFill="#d6d6d6">
+                                    <Label fx:id="zwischentotalWertLbl2" alignment="CENTER_RIGHT" minWidth="80.0" text="0" textFill="#d6d6d6">
                                        <font>
                                           <Font name="Arial Narrow" size="20.0" />
                                        </font>
@@ -339,7 +339,7 @@
                                           <Font name="Arial Narrow" size="20.0" />
                                        </font>
                                     </Label>
-                                    <Label fx:id="superdividendeWertLbl2" minWidth="80.0" text="0" textFill="#d6d6d6">
+                                    <Label fx:id="superdividendeWertLbl2" alignment="CENTER_RIGHT" minWidth="80.0" text="0" textFill="#d6d6d6">
                                        <font>
                                           <Font name="Arial Narrow" size="20.0" />
                                        </font>
@@ -353,7 +353,7 @@
                                           <Font name="Arial Narrow" size="20.0" />
                                        </font>
                                     </Label>
-                                    <Label fx:id="neu2ReserveWertLbl" minWidth="80.0" text="0" textFill="#d6d6d6">
+                                    <Label fx:id="neu2ReserveWertLbl" alignment="CENTER_RIGHT" minWidth="80.0" text="0" textFill="#d6d6d6">
                                        <font>
                                           <Font name="Arial Narrow" size="20.0" />
                                        </font>
@@ -367,7 +367,7 @@
                                           <Font name="Arial Narrow" size="20.0" />
                                        </font>
                                     </Label>
-                                    <Label fx:id="neuerErfolgvortragWertLbl" minWidth="80.0" text="0" textFill="#d6d6d6">
+                                    <Label fx:id="neuerErfolgvortragWertLbl" alignment="CENTER_RIGHT" minWidth="80.0" text="0" textFill="#d6d6d6">
                                        <font>
                                           <Font name="Arial Narrow" size="20.0" />
                                        </font>

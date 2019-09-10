@@ -20,16 +20,16 @@ public class NumericTextField extends TextField {
         });
 
         textProperty().addListener((ObservableValue<? extends String> observableValue, String oldValue, String newValue) -> {
-            if (!isValid(newValue) || newValue.isEmpty()) {
+            if (!isValid(newValue)) {
                 setText(oldValue);
             }
         });
     }
 
     private boolean isValid(final String value) {
-        if (value.length() == 0 || value.equals("-")) {
+        if (value.equals("\\d*")) {
             return true;
-        }
+        } 
 
         try {
             Double.parseDouble(value);

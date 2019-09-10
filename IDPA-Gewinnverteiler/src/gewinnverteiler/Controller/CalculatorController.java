@@ -51,7 +51,6 @@ public class CalculatorController implements Initializable {
     private ResultController resultController;
 
     // variablen
-    private double reservenzuweisung;
     private double neuererfolgvortag;
     private double bilanzerfolg;
     private double zwischenresultat;
@@ -65,6 +64,7 @@ public class CalculatorController implements Initializable {
     private double dividende;
     private double zweiteGesReservenZuweisung;
     private double superdividende;
+    private double zuweisungGesReserven;
     private int emptyCounter = 0;
     private boolean dividendenAusschuettung = true;
     private boolean superdividendeAusschuettung = false;
@@ -83,7 +83,9 @@ public class CalculatorController implements Initializable {
 
     @FXML
     private void berechnen(ActionEvent event) {
-
+        
+        emptyCounter = 0;
+        
         // form validation
         if (erfolgTxt.getText().isEmpty()) {
             errorLbl.setText("Feld Erfolg kann nicht leer sein.");
@@ -166,7 +168,7 @@ public class CalculatorController implements Initializable {
             if (dividendenAusschuettung) {
                 if (gesReserven < erforderlicheReserve) {
                     double differenz = erforderlicheReserve - gesReserven;
-                    double zuweisungGesReserven = erfolg / 100 * 5;
+                    zuweisungGesReserven = erfolg / 100 * 5;
                     if (differenz < zuweisungGesReserven) {
                         zuweisungGesReserven = differenz;
                     }
@@ -182,11 +184,11 @@ public class CalculatorController implements Initializable {
                 System.out.println("Keine Dividende, Superdividende oder Reservenzuweisung, da ein Bilanzverlust vorhanden ist.");
             }
 
-            System.out.println("Gesetzliche Reserven jetzt: " + gesReserven);
 
             double volleGrundDividende = (partizipationskapital + aktienkapital) / 100 * 5;
 
             // 5% grösser als der bilanzerfolg *nach verrechnung* der gesetzlichen zuweisung
+            System.out.println("Bilanzerfolg: " + bilanzerfolg);
             if (volleGrundDividende < bilanzerfolg) {
                 bilanzerfolg -= volleGrundDividende;
                 dividende = volleGrundDividende;
@@ -200,13 +202,13 @@ public class CalculatorController implements Initializable {
             }
 
             if (superdividendeAusschuettung) {
-                superdividende = Math.floor(bilanzerfolg / (aktienkapital + partizipationskapital) * 0.011); // in Prozenten
+                superdividende = Math.floor(zwischenresultat / ((aktienkapital + partizipationskapital) * 0.011)); // in Prozenten
                 superdividende = ((aktienkapital + partizipationskapital) / 100) * superdividende;
-                System.out.println("Super test: " + superdividende);
                 zweiteGesReservenZuweisung = (superdividende / 100) * 10;
-                ValueHolder.getInstance().setZwischenresultat(zwischenresultat);
+                ValueHolder.getInstance().setZwischenresultat(zwischenresultat + dividende);
                 zwischenresultat -= superdividende;
                 zwischenresultat -= zweiteGesReservenZuweisung;
+                System.out.println("Zweite Gesetzliche Reserve: " + zweiteGesReservenZuweisung);
             }
 
             System.out.println("Dividende: " + dividende);
@@ -233,7 +235,7 @@ public class CalculatorController implements Initializable {
         ValueHolder.getInstance().setZiel1Reserve(((aktienkapital + partizipationskapital) / 100) * 20);
         ValueHolder.getInstance().setErforderlicheReserve(((aktienkapital + partizipationskapital) / 100) * 20);
         ValueHolder.getInstance().setNeuererfolgvortag(zwischenresultat);
-        ValueHolder.getInstance().setReservenzuweisung(reservenzuweisung);
+        ValueHolder.getInstance().setReservenzuweisung(zuweisungGesReserven);
         ValueHolder.getInstance().setNeu1Reserve(gesReserven);
         ValueHolder.getInstance().setNeu2Reserve(zweiteGesReservenZuweisung);
         ValueHolder.getInstance().setGewuenschteDividende(gewuenschteDividende);
@@ -249,7 +251,7 @@ public class CalculatorController implements Initializable {
 
     @FXML
     private void goToHilfe(ActionEvent event) {
-
+        SceneChanger.getInstance().loadFXML("View/Help.fxml", rootpane);
     }
 
 }

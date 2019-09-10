@@ -7,11 +7,14 @@
 package gewinnverteiler;
 
 import java.io.IOException;
+import java.net.URL;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.web.WebEngine;
+import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 
 /**
@@ -42,10 +45,17 @@ public class SceneChanger {
             stage.setTitle(name);
             stage.setResizable(false);
             stage.getIcons().add(new Image("Resources/calculator.png"));
-            stage.show();
             oldstage.close();
+            stage.show();
         } catch (IOException e) {
-            System.out.println("Can't load new window:" + name + " because of:");
+            System.out.println("Can't load new window: " + name + " because of:");
+            e.printStackTrace();
         }
+    }
+
+    public void loadWebPage(String name, WebView view) {
+        WebEngine webEngine = view.getEngine();
+        URL location = this.getClass().getResource(name);
+        webEngine.load(location.toString());
     }
 }

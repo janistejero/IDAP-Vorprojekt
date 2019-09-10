@@ -24,6 +24,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.web.WebView;
 
 /**
  * FXML Controller class
@@ -63,13 +64,9 @@ public class ResultController implements Initializable {
     @FXML
     private Label grunddividendeWertLbl;
     @FXML
-    private Label superdividendeLbl;
-    @FXML
     private Label bilanzerfolgLbl;
     @FXML
     private Label bilanzerfolgWertLbl;
-    @FXML
-    private Label grundivididendeLbl;
     @FXML
     private Label grunddividendeWertLbl2;
     @FXML
@@ -95,19 +92,23 @@ public class ResultController implements Initializable {
     @FXML
     private Label neuerErfolgvortragWertLbl;
     @FXML
-    private Label ersteGesReserveLbl;
-    @FXML
     private Label neu1ReserveWertLbl;
     @FXML
     private Label zwischentotalWertLbl1;
     @FXML
     private Label zwischentotalWertLbl2;
     @FXML
-    private Label zweiteGesReserveLbl;
-    @FXML
     private Label neu2ReserveWertLbl;
     @FXML
     private HBox ersteGesReservenHBox;
+    @FXML
+    private Label ersteGesReserveLbl;
+    @FXML
+    private Label grundivididendeLbl;
+    @FXML
+    private Label superdividendeLbl;
+    @FXML
+    private Label zweiteGesReserveLbl;
 
     /**
      * Initializes the controller class.
@@ -138,11 +139,11 @@ public class ResultController implements Initializable {
         reserve1Chart.setLegendSide(Side.LEFT);
 
         final Label caption = new Label("");
-        caption.setTextFill(Color.WHITE                  );
+        caption.setTextFill(Color.WHITESMOKE);
         caption.setStyle("-fx-font: 24 arial;");
 
         for (final PieChart.Data data : reserve1Chart.getData()) {
-            data.getNode().addEventHandler(MouseEvent.MOUSE_PRESSED,
+            data.getNode().addEventHandler(MouseEvent.MOUSE_ENTERED,
                     new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent e) {
@@ -165,7 +166,7 @@ public class ResultController implements Initializable {
         aktuell1ReserveLbl.setText(String.valueOf(ValueHolder.getInstance().getAktuell1Reserve()));
         ziel1ReserveLbl.setText(String.valueOf(ValueHolder.getInstance().getZiel1Reserve()));
         neu1ReserveLbl.setText(String.valueOf(ValueHolder.getInstance().getNeu1Reserve()));
-        neu1ReserveWertLbl.setText(String.valueOf(ValueHolder.getInstance().getNeu1Reserve()));
+        neu1ReserveWertLbl.setText(String.valueOf(ValueHolder.getInstance().getReservenzuweisung()));
 
         // erfolg
         if (ValueHolder.getInstance().getErfolg() > 1) {
@@ -206,22 +207,25 @@ public class ResultController implements Initializable {
             superdividendeWertLbl.setText("---");
         } else {
             // zweite Reserve und Superdividende
+            System.out.println(ValueHolder.getInstance().getSuperdividendeAusschuettung());
+            System.out.println(ValueHolder.getInstance().getSuperdividende());
             if (ValueHolder.getInstance().getSuperdividendeAusschuettung()) {
                 // zweite reserve
                 aktuell2ReserveLbl.setText(String.valueOf(ValueHolder.getInstance().getAktuell2Reserve()));
                 ziel2ReserveLbl.setText(String.valueOf(ValueHolder.getInstance().getAktuell2Reserve()));
                 neu2ReserveWertLbl.setText(String.valueOf(ValueHolder.getInstance().getNeu2Reserve()));
-
+                neu2ReserveLbl.setText(String.valueOf(ValueHolder.getInstance().getNeu2Reserve()));
+                
                 // superdividende
                 superdividendeWertLbl.setText(String.valueOf(ValueHolder.getInstance().getSuperdividende()));
                 superdividendeWertLbl2.setText(String.valueOf(ValueHolder.getInstance().getSuperdividende()));
-
             } else {
                 aktuell2ReserveLbl.setText("---");
                 ziel2ReserveLbl.setText("---");
                 neu2ReserveLbl.setText("---");
                 superdividendeWertLbl.setText("---");
                 verwendungsplanVBox.getChildren().remove(superdividendeHBox);
+                verwendungsplanVBox.getChildren().remove(zweiteGesReservenHBox);
             }
 
             // Grunddividende
@@ -244,7 +248,7 @@ public class ResultController implements Initializable {
             zwischentotalWertLbl1.setText(String.valueOf(ValueHolder.getInstance().getZwischenresultat()));
 
             // zweites zwischentotal
-            double zwischentotalNachDividende = ValueHolder.getInstance().getZwischenresultat() - ValueHolder.getInstance().getSuperdividende() - ValueHolder.getInstance().getNeu2Reserve();
+            double zwischentotalNachDividende = ValueHolder.getInstance().getZwischenresultat() - ValueHolder.getInstance().getGrunddividende();
             zwischentotalWertLbl2.setText(String.valueOf(zwischentotalNachDividende));
 
         }
@@ -265,6 +269,7 @@ public class ResultController implements Initializable {
 
     @FXML
     private void goToHilfe(ActionEvent event) {
+        SceneChanger.getInstance().loadFXML("View/Help.fxml", rootpane);
     }
 
 }
