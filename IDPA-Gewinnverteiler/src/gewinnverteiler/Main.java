@@ -23,10 +23,14 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("View/Calculator.fxml"));
         Scene scene = new Scene(root);
+        scene.getStylesheets().add("Resources/styles.css");
         primaryStage.setResizable(false);
         primaryStage.getIcons().add(new Image("Resources/calculator.png"));
         primaryStage.setScene(scene);
         primaryStage.show();
+        
+        double x = -5000;
+        double y= 10000;
     }
 
     /**

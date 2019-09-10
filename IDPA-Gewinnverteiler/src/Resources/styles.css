@@ -38,3 +38,9 @@ and open the template in the editor.
    -fx-background-color:  #34353b;
    -fx-padding: 0 0.05em 0 0.05em;
 }
+
+.default-color0.chart-pie { -fx-pie-color: #ffd700; }
+.default-color1.chart-pie { -fx-pie-color: #ffa500; }
+.default-color2.chart-pie { -fx-pie-color: #860061; }
+.default-color3.chart-pie { -fx-pie-color: #adff2f; }
+.default-color4.chart-pie { -fx-pie-color: #ff5700; }

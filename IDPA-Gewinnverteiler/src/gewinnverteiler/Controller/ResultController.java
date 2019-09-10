@@ -12,14 +12,18 @@ import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Side;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 
 /**
  * FXML Controller class
@@ -48,8 +52,6 @@ public class ResultController implements Initializable {
     private Label neu2ReserveLbl;
     @FXML
     private PieChart reserve1Chart;
-    @FXML
-    private PieChart reserve2Chart;
     @FXML
     private Label erfolgLbl;
     @FXML
@@ -104,6 +106,8 @@ public class ResultController implements Initializable {
     private Label zweiteGesReserveLbl;
     @FXML
     private Label neu2ReserveWertLbl;
+    @FXML
+    private HBox ersteGesReservenHBox;
 
     /**
      * Initializes the controller class.
@@ -122,17 +126,35 @@ public class ResultController implements Initializable {
             goToHilfe(event);
         });
 
+        
+        // Pie Chart
         ObservableList<PieChart.Data> reserve1Data
                 = FXCollections.observableArrayList(
-                        new PieChart.Data("Aktuell", 10000),
-                        new PieChart.Data("Ziel", 20000));
+                        new PieChart.Data("Aktuell", ValueHolder.getInstance().getAktuell1Reserve()),
+                        new PieChart.Data("Ziel", ValueHolder.getInstance().getZiel1Reserve()));
         reserve1Chart.getData().addAll(reserve1Data);
 
-        ObservableList<PieChart.Data> reserve2Data
-                = FXCollections.observableArrayList(
-                        new PieChart.Data("Aktuell", 5000),
-                        new PieChart.Data("Ziel", 1000));
-        reserve2Chart.getData().addAll(reserve2Data);
+        reserve1Chart.setLabelLineLength(10);
+        reserve1Chart.setLegendSide(Side.LEFT);
+
+        final Label caption = new Label("");
+        caption.setTextFill(Color.WHITE                  );
+        caption.setStyle("-fx-font: 24 arial;");
+
+        for (final PieChart.Data data : reserve1Chart.getData()) {
+            data.getNode().addEventHandler(MouseEvent.MOUSE_PRESSED,
+                    new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent e) {
+                    caption.setTranslateX(e.getSceneX());
+                    caption.setTranslateY(e.getSceneY());
+                    caption.setText(String.valueOf(data.getPieValue()) + "%");
+                }
+            });
+        }
+        // -----------------------------------------------------------------------------------------------------
+        
+        
 
         showResults();
     }
@@ -143,46 +165,19 @@ public class ResultController implements Initializable {
         aktuell1ReserveLbl.setText(String.valueOf(ValueHolder.getInstance().getAktuell1Reserve()));
         ziel1ReserveLbl.setText(String.valueOf(ValueHolder.getInstance().getZiel1Reserve()));
         neu1ReserveLbl.setText(String.valueOf(ValueHolder.getInstance().getNeu1Reserve()));
-
-        // zweite Reserve und Superdividende
-        if (ValueHolder.getInstance().getSuperdividendeAusschuettung()) {
-            aktuell2ReserveLbl.setText(String.valueOf(ValueHolder.getInstance().getAktuell2Reserve()));
-            ziel2ReserveLbl.setText(String.valueOf(ValueHolder.getInstance().getSuperdividende()));
-            superdividendeWertLbl.setText(String.valueOf(ValueHolder.getInstance().getSuperdividende()));
-            superdividendeWertLbl2.setText(String.valueOf(ValueHolder.getInstance().getSuperdividende()));
-        } else {
-            aktuell2ReserveLbl.setText("---");
-            ziel2ReserveLbl.setText("---");
-            neu2ReserveLbl.setText("---");
-            superdividendeWertLbl.setText("---");
-            verwendungsplanVBox.getChildren().remove(superdividendeHBox);
-        }
-
-        // Grunddividende
-        if (ValueHolder.getInstance().getDividendenAusschuettung()) {
-            grunddividendeWertLbl.setText(String.valueOf(ValueHolder.getInstance().getGrunddividende()));
-            grunddividendeWertLbl2.setText(String.valueOf(ValueHolder.getInstance().getGrunddividende()));
-        } else {
-            grunddividendeWertLbl.setText("---");
-            verwendungsplanVBox.getChildren().remove(grunddividendeHBox);
-        }
-
-        // Verwendungsplan
-        if (ValueHolder.getInstance().getNeuererfolgvortag() > 0) {
-            verwendungsplanLbl.setText("Gewinnverwendungsplan");
-        } else {
-            verwendungsplanLbl.setText("Verlustverrechnungsplan");
-        }
+        neu1ReserveWertLbl.setText(String.valueOf(ValueHolder.getInstance().getNeu1Reserve()));
 
         // erfolg
-        if (ValueHolder.getInstance().getErfolg() > 0) {
+        if (ValueHolder.getInstance().getErfolg() > 1) {
             erfolgLbl.setText("Jahresgewinn");
         } else {
             erfolgLbl.setText("Jahresverlust");
         }
 
+        erfolgWertLbl.setText(String.valueOf(ValueHolder.getInstance().getErfolg()));
+
         // erfolgvortrag
-        if (ValueHolder.getInstance().getErfolgvortrag() > 0) {
+        if (ValueHolder.getInstance().getErfolgvortrag() > 1) {
             erfolgvortragLbl.setText("Gewinnvortrag");
         } else {
             erfolgvortragLbl.setText("Verlustvortrag");
@@ -190,23 +185,77 @@ public class ResultController implements Initializable {
         erfolgvortragWertLbl.setText(String.valueOf(ValueHolder.getInstance().getErfolgvortrag()));
 
         // bilanzerfolg
-        if (ValueHolder.getInstance().getBilanzerfolg() > 0) {
+        if (ValueHolder.getInstance().getBilanzerfolg() > 1) {
             bilanzerfolgLbl.setText("Bilanzgewinn");
         } else {
-            bilanzerfolgLbl.setText("Bilanzerfolg");
+            bilanzerfolgLbl.setText("Bilanzverlust");
         }
 
         // prüfe auf Bilanzverlust
-        if (ValueHolder.getInstance().getBilanzerfolg() < 0) {
+        if (ValueHolder.getInstance().getBilanzerfolg() < 1) {
             verwendungsplanVBox.getChildren().remove(erstesZwischentotalHBox);
             verwendungsplanVBox.getChildren().remove(grunddividendeHBox);
             verwendungsplanVBox.getChildren().remove(zweitesZwischentotalHBox);
             verwendungsplanVBox.getChildren().remove(superdividendeHBox);
             verwendungsplanVBox.getChildren().remove(zweiteGesReservenHBox);
+            verwendungsplanVBox.getChildren().remove(ersteGesReservenHBox);
+
+            aktuell2ReserveLbl.setText("---");
+            ziel2ReserveLbl.setText("---");
+            neu2ReserveLbl.setText("---");
+            superdividendeWertLbl.setText("---");
+        } else {
+            // zweite Reserve und Superdividende
+            if (ValueHolder.getInstance().getSuperdividendeAusschuettung()) {
+                // zweite reserve
+                aktuell2ReserveLbl.setText(String.valueOf(ValueHolder.getInstance().getAktuell2Reserve()));
+                ziel2ReserveLbl.setText(String.valueOf(ValueHolder.getInstance().getAktuell2Reserve()));
+                neu2ReserveWertLbl.setText(String.valueOf(ValueHolder.getInstance().getNeu2Reserve()));
+
+                // superdividende
+                superdividendeWertLbl.setText(String.valueOf(ValueHolder.getInstance().getSuperdividende()));
+                superdividendeWertLbl2.setText(String.valueOf(ValueHolder.getInstance().getSuperdividende()));
+
+            } else {
+                aktuell2ReserveLbl.setText("---");
+                ziel2ReserveLbl.setText("---");
+                neu2ReserveLbl.setText("---");
+                superdividendeWertLbl.setText("---");
+                verwendungsplanVBox.getChildren().remove(superdividendeHBox);
+            }
+
+            // Grunddividende
+            if (ValueHolder.getInstance().getDividendenAusschuettung()) {
+                grunddividendeWertLbl.setText(String.valueOf(ValueHolder.getInstance().getGrunddividende()));
+                grunddividendeWertLbl2.setText(String.valueOf(ValueHolder.getInstance().getGrunddividende()));
+            } else {
+                grunddividendeWertLbl.setText("---");
+                verwendungsplanVBox.getChildren().remove(grunddividendeHBox);
+            }
+
+            // Verwendungsplan
+            if (ValueHolder.getInstance().getNeuererfolgvortag() > 0) {
+                verwendungsplanLbl.setText("Gewinnverwendungsplan");
+            } else {
+                verwendungsplanLbl.setText("Verlustverrechnungsplan");
+            }
+
+            // erstes zwischentotal
+            zwischentotalWertLbl1.setText(String.valueOf(ValueHolder.getInstance().getZwischenresultat()));
+
+            // zweites zwischentotal
+            double zwischentotalNachDividende = ValueHolder.getInstance().getZwischenresultat() - ValueHolder.getInstance().getSuperdividende() - ValueHolder.getInstance().getNeu2Reserve();
+            zwischentotalWertLbl2.setText(String.valueOf(zwischentotalNachDividende));
+
         }
 
-        // erste gesetzliche Reserve
-        
+        bilanzerfolgWertLbl.setText(String.valueOf(ValueHolder.getInstance().getBilanzerfolg()));
+
+        if (ValueHolder.getInstance().getNeuererfolgvortag() < 0) {
+            neuerErfolgvortragLbl.setText("Verlustvortrag neu");
+        }
+
+        neuerErfolgvortragWertLbl.setText(String.valueOf((int) ValueHolder.getInstance().getNeuererfolgvortag()));
     }
 
     @FXML

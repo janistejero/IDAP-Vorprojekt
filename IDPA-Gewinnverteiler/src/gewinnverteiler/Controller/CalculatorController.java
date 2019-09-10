@@ -24,7 +24,7 @@ import javafx.scene.layout.AnchorPane;
  * @author Janis Tejero
  */
 public class CalculatorController implements Initializable {
-    
+
     @FXML
     private Button berechnenBtn;
     @FXML
@@ -47,7 +47,7 @@ public class CalculatorController implements Initializable {
     private TextField erfolgvortragTxt;
     @FXML
     private TextField zielDividendeTxt;
-    
+
     private ResultController resultController;
 
     // variablen
@@ -69,7 +69,7 @@ public class CalculatorController implements Initializable {
     private boolean dividendenAusschuettung = true;
     private boolean superdividendeAusschuettung = false;
     private boolean validInput = false;
-    
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         errorLbl.setVisible(false);
@@ -80,39 +80,50 @@ public class CalculatorController implements Initializable {
         erfolgvortragTxt.setText("10000");
         zielDividendeTxt.setText("5");
     }
-    
+
     @FXML
     private void berechnen(ActionEvent event) {
 
         // form validation
-        if (erfolgTxt.getText().isEmpty() || partizipationskapitalTxt.getText().isEmpty() || gesReservenTxt.getText().isEmpty() || zielDividendeTxt.getText().isEmpty()) {
+        if (erfolgTxt.getText().isEmpty()) {
             errorLbl.setText("Feld Erfolg kann nicht leer sein.");
+            erfolgTxt.setStyle("-fx-border-color: red");
             emptyCounter++;
         }
         if (aktienkapitalTxt.getText().isEmpty()) {
             errorLbl.setText("Feld Aktienkapital kann nicht leer sein.");
+            aktienkapitalTxt.setStyle("-fx-border-color: red");
             emptyCounter++;
         }
-        
+
         if (partizipationskapitalTxt.getText().isEmpty()) {
             errorLbl.setText("Feld Partizipationskapital kann nicht leer sein.");
+            partizipationskapitalTxt.setStyle("-fx-border-color: red");
             emptyCounter++;
         }
-        
+
         if (gesReservenTxt.getText().isEmpty()) {
             errorLbl.setText("Feld Gesetzliche Reserve kann nicht leer sein.");
+            gesReservenTxt.setStyle("-fx-border-color: red");
             emptyCounter++;
         }
-        
+
+        if (erfolgvortragTxt.getText().isEmpty()) {
+            errorLbl.setText("Feld Erfolgvortrag kann nicht leer sein.");
+            erfolgvortragTxt.setStyle("-fx-border-color: red");
+            emptyCounter++;
+        }
+
         if (zielDividendeTxt.getText().isEmpty()) {
             errorLbl.setText("Feld Ziel Dividende kann nicht leer sein.");
+            zielDividendeTxt.setStyle("-fx-border-color: red");
             emptyCounter++;
         }
-        
+
         if (emptyCounter > 1) {
             errorLbl.setText("Bitte die leeren Felder ausfüllen");
         }
-        
+
         if (emptyCounter > 0) {
             validInput = false;
             errorLbl.setVisible(true);
@@ -132,23 +143,34 @@ public class CalculatorController implements Initializable {
 
             // verrechnung erfolg mit vortrag
             bilanzerfolg = erfolg + erfolgvortrag;
-            
+
             erforderlicheReserve = ((aktienkapital + partizipationskapital) / 100) * 20;
             System.out.println("Bilanzerfolg: " + bilanzerfolg);
 
-            // ausgleich mit reserven
-            if (bilanzerfolg < 0 && gesReserven > bilanzerfolg) {
-                gesReserven += bilanzerfolg;
-                bilanzerfolg = 0;
+            // verlustvortrag
+            if (bilanzerfolg < 0) {
+                // deckbar mit reserven
+                if (gesReserven >= (bilanzerfolg * -1)) {
+                    gesReserven += bilanzerfolg;
+                    bilanzerfolg = 0;
+                } else {
+                    bilanzerfolg += gesReserven;
+                    gesReserven = 0;
+                }
                 dividende = 0;
                 dividendenAusschuettung = false;
             }
-            
+
             ValueHolder.getInstance().setBilanzerfolg(bilanzerfolg);
-            
+
             if (dividendenAusschuettung) {
                 if (gesReserven < erforderlicheReserve) {
+                    double differenz = erforderlicheReserve - gesReserven;
                     double zuweisungGesReserven = erfolg / 100 * 5;
+                    if (differenz < zuweisungGesReserven) {
+                        zuweisungGesReserven = differenz;
+                    }
+
                     if (zuweisungGesReserven < 1) {
                         zuweisungGesReserven = 0;
                     }
@@ -159,14 +181,11 @@ public class CalculatorController implements Initializable {
             } else {
                 System.out.println("Keine Dividende, Superdividende oder Reservenzuweisung, da ein Bilanzverlust vorhanden ist.");
             }
-            
+
             System.out.println("Gesetzliche Reserven jetzt: " + gesReserven);
-            
+
             double volleGrundDividende = (partizipationskapital + aktienkapital) / 100 * 5;
 
-            
-            
-            
             // 5% grösser als der bilanzerfolg *nach verrechnung* der gesetzlichen zuweisung
             if (volleGrundDividende < bilanzerfolg) {
                 bilanzerfolg -= volleGrundDividende;
@@ -179,27 +198,29 @@ public class CalculatorController implements Initializable {
                 bilanzerfolg -= dividende;
                 zwischenresultat = bilanzerfolg;
             }
-            
+
             if (superdividendeAusschuettung) {
-                superdividende = Math.floor(bilanzerfolg / (aktienkapital + partizipationskapital) * 0.011);
+                superdividende = Math.floor(bilanzerfolg / (aktienkapital + partizipationskapital) * 0.011); // in Prozenten
+                superdividende = ((aktienkapital + partizipationskapital) / 100) * superdividende;
+                System.out.println("Super test: " + superdividende);
                 zweiteGesReservenZuweisung = (superdividende / 100) * 10;
                 ValueHolder.getInstance().setZwischenresultat(zwischenresultat);
                 zwischenresultat -= superdividende;
                 zwischenresultat -= zweiteGesReservenZuweisung;
             }
-            
+
             System.out.println("Dividende: " + dividende);
             System.out.println("Zwischentotal: " + zwischenresultat);
             System.out.println("Superdividende: " + superdividende);
-            
+
             // Zum ValueHolder schreiben
             updateValues();
-            
+
             // weiterleitung zur Resultatseite
             SceneChanger.getInstance().loadFXML("View/Result.fxml", rootpane);
         }
     }
-    
+
     private void updateValues() {
         ValueHolder.getInstance().setAktienkapital(aktienkapital);
         ValueHolder.getInstance().setErfolg(erfolg);
@@ -219,15 +240,16 @@ public class CalculatorController implements Initializable {
         ValueHolder.getInstance().setSuperdividendeAusschuettung(superdividendeAusschuettung);
         ValueHolder.getInstance().setDividendenAusschuettung(dividendenAusschuettung);
     }
-    
+
     @FXML
     private void goToResultat(ActionEvent event) {
+        berechnen(event);
         SceneChanger.getInstance().loadFXML("View/Result.fxml", rootpane);
     }
-    
+
     @FXML
     private void goToHilfe(ActionEvent event) {
-        
+
     }
-    
+
 }

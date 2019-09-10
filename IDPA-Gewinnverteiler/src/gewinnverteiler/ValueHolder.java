@@ -42,6 +42,7 @@ public class ValueHolder {
     private double superdividende;
     private boolean superdividendeAusschuettung;
     private boolean dividendenAusschuettung;
+
     
     private ValueHolder() {
 

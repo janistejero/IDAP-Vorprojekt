@@ -154,12 +154,19 @@
                                     </Label>
                                  </children>
                               </HBox>
-                              <HBox prefHeight="35.0" spacing="100.0">
+                              <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
                                  <children>
+                                    <Label text="Gesetzliche Reserven Deckung" textFill="#d6d6d6">
+                                       <font>
+                                          <Font name="Arial" size="13.0" />
+                                       </font>
+                                    </Label>
                                     <PieChart fx:id="reserve1Chart" prefWidth="100.0" />
-                                    <PieChart fx:id="reserve2Chart" prefWidth="100.0" />
                                  </children>
-                              </HBox>
+                                 <padding>
+                                    <Insets top="20.0" />
+                                 </padding>
+                              </VBox>
                            </children>
                         </VBox>
                      </children>
@@ -220,141 +227,147 @@
                                        </font>
                                     </Label>
                                  </children>
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                                 <padding>
+                                    <Insets bottom="10.0" />
+                                 </padding>
                               </HBox>
-                              <HBox alignment="CENTER" prefHeight="35.0" spacing="100.0">
+                              <HBox alignment="CENTER" prefHeight="35.0" spacing="30.0">
                                  <children>
                                     <Label fx:id="erfolgLbl" prefWidth="150.0" text="Erfolg" textFill="#d6d6d6" HBox.hgrow="ALWAYS">
                                        <font>
                                           <Font name="Arial Narrow" size="20.0" />
                                        </font>
                                     </Label>
-                                    <Label fx:id="erfolgWertLbl" text="0" textFill="#d6d6d6" HBox.hgrow="ALWAYS">
+                                    <Label fx:id="erfolgWertLbl" minWidth="80.0" text="0" textFill="#d6d6d6" HBox.hgrow="ALWAYS">
                                        <font>
                                           <Font name="Arial Narrow" size="20.0" />
                                        </font>
                                     </Label>
                                  </children>
                               </HBox>
-                              <HBox alignment="CENTER" prefHeight="35.0" spacing="100.0">
+                              <HBox alignment="CENTER" prefHeight="35.0" spacing="30.0">
                                  <children>
                                     <Label fx:id="erfolgvortragLbl" prefWidth="150.0" text="Erfolgvortrag" textFill="#d6d6d6" HBox.hgrow="ALWAYS">
                                        <font>
                                           <Font name="Arial Narrow" size="20.0" />
                                        </font>
                                     </Label>
-                                    <Label fx:id="erfolgvortragWertLbl" text="0" textFill="#d6d6d6" HBox.hgrow="ALWAYS">
+                                    <Label fx:id="erfolgvortragWertLbl" minWidth="80.0" text="0" textFill="#d6d6d6" HBox.hgrow="ALWAYS">
                                        <font>
                                           <Font name="Arial Narrow" size="20.0" />
                                        </font>
                                     </Label>
                                  </children>
                               </HBox>
-                              <HBox alignment="CENTER" prefHeight="35.0" spacing="100.0">
+                              <HBox alignment="CENTER" prefHeight="35.0" spacing="30.0">
                                  <children>
                                     <Label fx:id="bilanzerfolgLbl" prefWidth="150.0" text="Bilanzerfolg" textFill="#d6d6d6" HBox.hgrow="ALWAYS">
                                        <font>
                                           <Font name="Arial Narrow" size="20.0" />
                                        </font>
                                     </Label>
-                                    <Label fx:id="bilanzerfolgWertLbl" text="0" textFill="#d6d6d6">
+                                    <Label fx:id="bilanzerfolgWertLbl" minWidth="80.0" text="0" textFill="#d6d6d6">
                                        <font>
                                           <Font name="Arial Narrow" size="20.0" />
                                        </font>
                                     </Label>
                                  </children>
                               </HBox>
-                              <HBox alignment="CENTER" prefHeight="35.0" spacing="100.0">
+                              <HBox fx:id="ersteGesReservenHBox" alignment="CENTER" prefHeight="35.0" spacing="30.0">
                                  <children>
                                     <Label fx:id="ersteGesReserveLbl" prefWidth="150.0" text="1. ges Reserven" textFill="#d6d6d6" HBox.hgrow="ALWAYS">
                                        <font>
                                           <Font name="Arial Narrow" size="20.0" />
                                        </font>
                                     </Label>
-                                    <Label fx:id="neu1ReserveWertLbl" text="0" textFill="#d6d6d6">
+                                    <Label fx:id="neu1ReserveWertLbl" minWidth="80.0" text="0" textFill="#d6d6d6">
                                        <font>
                                           <Font name="Arial Narrow" size="20.0" />
                                        </font>
                                     </Label>
                                  </children>
                               </HBox>
-                              <HBox fx:id="erstesZwischentotalHBox" alignment="CENTER" prefHeight="35.0" spacing="100.0">
+                              <HBox fx:id="erstesZwischentotalHBox" alignment="CENTER" prefHeight="35.0" spacing="30.0">
                                  <children>
                                     <Label prefWidth="150.0" text="Zwischentotal" textFill="#d6d6d6" HBox.hgrow="ALWAYS">
                                        <font>
                                           <Font name="Arial Narrow" size="20.0" />
                                        </font>
                                     </Label>
-                                    <Label fx:id="zwischentotalWertLbl1" text="0" textFill="#d6d6d6">
+                                    <Label fx:id="zwischentotalWertLbl1" minWidth="80.0" text="0" textFill="#d6d6d6">
                                        <font>
                                           <Font name="Arial Narrow" size="20.0" />
                                        </font>
                                     </Label>
                                  </children>
                               </HBox>
-                              <HBox fx:id="grunddividendeHBox" alignment="CENTER" prefHeight="35.0" spacing="100.0">
+                              <HBox fx:id="grunddividendeHBox" alignment="CENTER" prefHeight="35.0" spacing="30.0">
                                  <children>
                                     <Label fx:id="grundivididendeLbl" prefWidth="150.0" text="Grunddividende" textFill="#d6d6d6" HBox.hgrow="ALWAYS">
                                        <font>
                                           <Font name="Arial Narrow" size="20.0" />
                                        </font>
                                     </Label>
-                                    <Label fx:id="grunddividendeWertLbl2" text="0" textFill="#d6d6d6">
+                                    <Label fx:id="grunddividendeWertLbl2" minWidth="80.0" text="0" textFill="#d6d6d6">
                                        <font>
                                           <Font name="Arial Narrow" size="20.0" />
                                        </font>
                                     </Label>
                                  </children>
                               </HBox>
-                              <HBox fx:id="zweitesZwischentotalHBox" alignment="CENTER" prefHeight="35.0" spacing="100.0">
+                              <HBox fx:id="zweitesZwischentotalHBox" alignment="CENTER" prefHeight="35.0" spacing="30.0">
                                  <children>
                                     <Label prefWidth="150.0" text="Zwischentotal" textFill="#d6d6d6" HBox.hgrow="ALWAYS">
                                        <font>
                                           <Font name="Arial Narrow" size="20.0" />
                                        </font>
                                     </Label>
-                                    <Label fx:id="zwischentotalWertLbl2" text="0" textFill="#d6d6d6">
+                                    <Label fx:id="zwischentotalWertLbl2" minWidth="80.0" text="0" textFill="#d6d6d6">
                                        <font>
                                           <Font name="Arial Narrow" size="20.0" />
                                        </font>
                                     </Label>
                                  </children>
                               </HBox>
-                              <HBox fx:id="superdividendeHBox" alignment="CENTER" prefHeight="35.0" spacing="100.0">
+                              <HBox fx:id="superdividendeHBox" alignment="CENTER" prefHeight="35.0" spacing="30.0">
                                  <children>
                                     <Label fx:id="superdividendeLbl" prefWidth="150.0" text="Superdividende" textFill="#d6d6d6" HBox.hgrow="ALWAYS">
                                        <font>
                                           <Font name="Arial Narrow" size="20.0" />
                                        </font>
                                     </Label>
-                                    <Label fx:id="superdividendeWertLbl2" text="0" textFill="#d6d6d6">
+                                    <Label fx:id="superdividendeWertLbl2" minWidth="80.0" text="0" textFill="#d6d6d6">
                                        <font>
                                           <Font name="Arial Narrow" size="20.0" />
                                        </font>
                                     </Label>
                                  </children>
                               </HBox>
-                              <HBox fx:id="zweiteGesReservenHBox" alignment="CENTER" prefHeight="35.0" spacing="100.0">
+                              <HBox fx:id="zweiteGesReservenHBox" alignment="CENTER" prefHeight="35.0" spacing="30.0">
                                  <children>
                                     <Label fx:id="zweiteGesReserveLbl" prefWidth="150.0" text="2. ges Reserven" textFill="#d6d6d6" HBox.hgrow="ALWAYS">
                                        <font>
                                           <Font name="Arial Narrow" size="20.0" />
                                        </font>
                                     </Label>
-                                    <Label fx:id="neu2ReserveWertLbl" text="0" textFill="#d6d6d6">
+                                    <Label fx:id="neu2ReserveWertLbl" minWidth="80.0" text="0" textFill="#d6d6d6">
                                        <font>
                                           <Font name="Arial Narrow" size="20.0" />
                                        </font>
                                     </Label>
                                  </children>
                               </HBox>
-                              <HBox alignment="CENTER" prefHeight="35.0" spacing="100.0">
+                              <HBox alignment="CENTER" prefHeight="35.0" spacing="30.0">
                                  <children>
-                                    <Label fx:id="neuerErfolgvortragLbl" prefWidth="150.0" text="Erfolgvortrag" textFill="#d6d6d6" HBox.hgrow="ALWAYS">
+                                    <Label fx:id="neuerErfolgvortragLbl" prefWidth="150.0" text="Erfolgvortrag neu" textFill="#d6d6d6" HBox.hgrow="ALWAYS">
                                        <font>
                                           <Font name="Arial Narrow" size="20.0" />
                                        </font>
                                     </Label>
-                                    <Label fx:id="neuerErfolgvortragWertLbl" text="0" textFill="#d6d6d6">
+                                    <Label fx:id="neuerErfolgvortragWertLbl" minWidth="80.0" text="0" textFill="#d6d6d6">
                                        <font>
                                           <Font name="Arial Narrow" size="20.0" />
                                        </font>
