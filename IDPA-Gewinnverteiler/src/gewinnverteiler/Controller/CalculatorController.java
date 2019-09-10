@@ -72,7 +72,7 @@ public class CalculatorController implements Initializable {
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        //errorLbl.setVisible(false);
+        errorLbl.setVisible(false);
         erfolgTxt.setText("10000");
         aktienkapitalTxt.setText("100000");
         partizipationskapitalTxt.setText("0");
@@ -115,6 +115,7 @@ public class CalculatorController implements Initializable {
         
         if (emptyCounter > 0) {
             validInput = false;
+            errorLbl.setVisible(true);
         } else {
             validInput = true;
         }
