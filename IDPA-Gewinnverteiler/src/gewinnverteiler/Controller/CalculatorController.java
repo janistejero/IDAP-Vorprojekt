@@ -60,7 +60,7 @@ public class CalculatorController implements Initializable {
     private double partizipationskapital;
     private double gesReserven;
     private double erfolgvortrag;
-    private double gewuenschteDividende;
+    private double gewuenschteDividendeProzent;
     private double dividende;
     private double zweiteGesReservenZuweisung;
     private double superdividende;
@@ -141,8 +141,9 @@ public class CalculatorController implements Initializable {
             partizipationskapital = Double.valueOf(partizipationskapitalTxt.getText());
             gesReserven = Double.valueOf(gesReservenTxt.getText());
             erfolgvortrag = Double.valueOf(erfolgvortragTxt.getText());
-            gewuenschteDividende = Double.valueOf(zielDividendeTxt.getText());
-
+            gewuenschteDividendeProzent = Double.valueOf(zielDividendeTxt.getText());
+            System.out.println("Gewünschte Dividende: " + gewuenschteDividendeProzent + " %");
+            
             // verrechnung erfolg mit vortrag
             bilanzerfolg = erfolg + erfolgvortrag;
 
@@ -161,6 +162,18 @@ public class CalculatorController implements Initializable {
                 }
                 dividende = 0;
                 dividendenAusschuettung = false;
+            }
+            
+            
+            // gewuenschte dividendenbetrag festlegen
+            gewuenschteDividendeProzent = Math.floor(gewuenschteDividendeProzent);
+            
+            if(gewuenschteDividendeProzent > 5){
+                double gewuenschteSuperdividendeProzent = gewuenschteDividendeProzent - 5;
+                double gewuenschteSuperdividende = ((aktienkapital + partizipationskapital) / 100) * gewuenschteSuperdividendeProzent;
+                if(bilanzerfolg > gewuenschteSuperdividende){
+                    
+                }
             }
 
             ValueHolder.getInstance().setBilanzerfolg(bilanzerfolg);
@@ -238,7 +251,7 @@ public class CalculatorController implements Initializable {
         ValueHolder.getInstance().setReservenzuweisung(zuweisungGesReserven);
         ValueHolder.getInstance().setNeu1Reserve(gesReserven);
         ValueHolder.getInstance().setNeu2Reserve(zweiteGesReservenZuweisung);
-        ValueHolder.getInstance().setGewuenschteDividende(gewuenschteDividende);
+        ValueHolder.getInstance().setGewuenschteDividende(gewuenschteDividendeProzent);
         ValueHolder.getInstance().setSuperdividendeAusschuettung(superdividendeAusschuettung);
         ValueHolder.getInstance().setDividendenAusschuettung(dividendenAusschuettung);
     }
