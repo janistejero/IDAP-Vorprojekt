@@ -16,7 +16,7 @@
 <?import javafx.scene.text.Font?>
 <?import gewinnverteiler.NumericTextField?>
 
-<AnchorPane id="AnchorPane" fx:id="rootpane" prefHeight="600.0" prefWidth="500.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gewinnverteiler.Controller.CalculatorController">
+<AnchorPane id="AnchorPane" fx:id="rootpane" prefHeight="600.0" prefWidth="500.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gewinnverteiler.Controller.CalculatorController">
    <children>
       <BorderPane prefHeight="600.0" prefWidth="500.0" style="-fx-background-color: #343640; -fx-border-color: #40414a;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <top>
@@ -82,52 +82,72 @@
                <children>
                   <HBox spacing="20.0">
                      <children>
-                        <VBox prefWidth="250.0" spacing="20.0" HBox.hgrow="ALWAYS">
+                        <VBox prefWidth="500.0" spacing="20.0" HBox.hgrow="ALWAYS">
                            <children>
-                              <Label prefHeight="25.0" text="Jahreserfolg (+/-)" textFill="#d6d6d6">
-                                 <font>
-                                    <Font name="Arial" size="20.0" />
-                                 </font>
-                              </Label>
-                              <Label prefHeight="25.0" text="Aktienkapital" textFill="#d6d6d6">
-                                 <font>
-                                    <Font name="Arial" size="20.0" />
-                                 </font>
-                              </Label>
-                              <Label prefHeight="25.0" text="Partizipationskapital" textFill="#d6d6d6">
-                                 <font>
-                                    <Font name="Arial" size="20.0" />
-                                 </font>
-                              </Label>
-                              <Label prefHeight="25.0" text="Gesetzliche Reserven" textFill="#d6d6d6">
-                                 <font>
-                                    <Font name="Arial" size="20.0" />
-                                 </font>
-                              </Label>
-                              <Label prefHeight="25.0" text="Erfolgvortrag (+/-)" textFill="#d6d6d6">
-                                 <font>
-                                    <Font name="Arial" size="20.0" />
-                                 </font>
-                              </Label>
-                              <Label prefHeight="25.0" text="Dividende in %" textFill="#d6d6d6">
-                                 <font>
-                                    <Font name="Arial" size="20.0" />
-                                 </font>
-                              </Label>
+                              <HBox prefHeight="30.0" prefWidth="400.0">
+                                 <children>
+                                    <Label prefHeight="25.0" prefWidth="220.0" text="Jahreserfolg (+/-)" textFill="#d6d6d6">
+                                       <font>
+                                          <Font name="Arial" size="20.0" />
+                                       </font>
+                                    </Label>
+                                    <NumericTextField fx:id="erfolgTxt" prefWidth="150.0" />
+                                 </children>
+                              </HBox>
+                              <HBox prefHeight="30.0" prefWidth="200.0">
+                                 <children>
+                                    <Label prefHeight="25.0" prefWidth="220.0" text="Aktienkapital" textFill="#d6d6d6">
+                                       <font>
+                                          <Font name="Arial" size="20.0" />
+                                       </font>
+                                    </Label>
+                                    <NumericTextField fx:id="aktienkapitalTxt" prefWidth="150.0" />
+                                 </children>
+                              </HBox>
+                              <HBox prefHeight="30.0" prefWidth="200.0">
+                                 <children>
+                                    <Label prefHeight="25.0" prefWidth="220.0" text="Partizipationskapital" textFill="#d6d6d6">
+                                       <font>
+                                          <Font name="Arial" size="20.0" />
+                                       </font>
+                                    </Label>
+                                    <NumericTextField fx:id="partizipationskapitalTxt" prefWidth="150.0" />
+                                 </children>
+                              </HBox>
+                              <HBox prefHeight="30.0" prefWidth="200.0">
+                                 <children>
+                                    <Label prefHeight="25.0" prefWidth="220.0" text="Gesetzliche Reserven" textFill="#d6d6d6">
+                                       <font>
+                                          <Font name="Arial" size="20.0" />
+                                       </font>
+                                    </Label>
+                                    <NumericTextField fx:id="gesReservenTxt" prefWidth="150.0" />
+                                 </children>
+                              </HBox>
+                              <HBox prefHeight="30.0" prefWidth="200.0">
+                                 <children>
+                                    <Label prefHeight="25.0" prefWidth="220.0" text="Erfolgvortrag (+/-)" textFill="#d6d6d6">
+                                       <font>
+                                          <Font name="Arial" size="20.0" />
+                                       </font>
+                                    </Label>
+                                    <NumericTextField fx:id="erfolgvortragTxt" prefWidth="150.0" />
+                                 </children>
+                              </HBox>
+                              <HBox prefHeight="100.0" prefWidth="200.0">
+                                 <children>
+                                    <Label prefHeight="25.0" prefWidth="220.0" text="Dividende in %" textFill="#d6d6d6">
+                                       <font>
+                                          <Font name="Arial" size="20.0" />
+                                       </font>
+                                    </Label>
+                                    <NumericTextField fx:id="zielDividendeTxt" prefWidth="150.0" />
+                                 </children>
+                              </HBox>
                            </children>
                            <padding>
                               <Insets left="50.0" />
                            </padding>
-                        </VBox>
-                        <VBox alignment="TOP_CENTER" fillWidth="false" prefWidth="150.0" spacing="20.0" HBox.hgrow="ALWAYS">
-                           <children>
-                              <NumericTextField fx:id="erfolgTxt" />
-                              <NumericTextField fx:id="aktienkapitalTxt" />
-                              <NumericTextField fx:id="partizipationskapitalTxt" />
-                              <NumericTextField fx:id="gesReservenTxt" />
-                              <NumericTextField fx:id="erfolgvortragTxt" />
-                              <NumericTextField fx:id="zielDividendeTxt" />
-                           </children>
                         </VBox>
                      </children>
                      <padding>

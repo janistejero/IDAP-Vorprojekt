@@ -13,7 +13,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Menu;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 
 /**
@@ -21,27 +20,28 @@ import javafx.scene.web.WebView;
  *
  * @author Janis Tejero
  */
-public class HelpController implements Initializable {
+public class DescriptionController implements Initializable {
 
     @FXML
     private AnchorPane rootpane;
     @FXML
     private Menu menuRechner;
     @FXML
-    private WebView siteWebView;
-    @FXML
     private Menu menuResultat;
     @FXML
     private Menu menuHilfe;
+    @FXML
+    private WebView siteWebView;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        SceneChanger.getInstance().loadWebPage("/Resources/Hilfe2.html", siteWebView);
-    }
+        SceneChanger.getInstance().loadWebPage("/Resources/Beschreibung.html", siteWebView);
+    }    
 
+    
     @FXML
     private void goToRechner(ActionEvent event) {
         SceneChanger.getInstance().loadFXML("View/Calculator.fxml", rootpane);
@@ -51,9 +51,11 @@ public class HelpController implements Initializable {
     private void goToResultat(ActionEvent event) {
         SceneChanger.getInstance().loadFXML("View/Result.fxml", rootpane);
     }
-
+    
+    
     @FXML
     private void goToHilfe(ActionEvent event) {
+        SceneChanger.getInstance().loadFXML("View/Help.fxml", rootpane);
     }
-
+    
 }

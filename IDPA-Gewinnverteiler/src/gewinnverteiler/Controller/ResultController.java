@@ -17,6 +17,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Side;
 import javafx.scene.chart.PieChart;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.input.MouseEvent;
@@ -24,7 +25,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.scene.web.WebView;
 
 /**
  * FXML Controller class
@@ -109,6 +109,8 @@ public class ResultController implements Initializable {
     private Label superdividendeLbl;
     @FXML
     private Label zweiteGesReserveLbl;
+    @FXML
+    private Button erklaerungBtn;
 
     /**
      * Initializes the controller class.
@@ -128,12 +130,7 @@ public class ResultController implements Initializable {
         });
 
         
-        // Pie Chart
-        ObservableList<PieChart.Data> reserve1Data
-                = FXCollections.observableArrayList(
-                        new PieChart.Data("Aktuell", ValueHolder.getInstance().getAktuell1Reserve()),
-                        new PieChart.Data("Ziel", ValueHolder.getInstance().getZiel1Reserve()));
-        reserve1Chart.getData().addAll(reserve1Data);
+     
 
         reserve1Chart.setLabelLineLength(10);
         reserve1Chart.setLegendSide(Side.LEFT);
@@ -260,6 +257,14 @@ public class ResultController implements Initializable {
         }
 
         neuerErfolgvortragWertLbl.setText(String.valueOf((int) ValueHolder.getInstance().getNeuererfolgvortag()));
+        
+        // Pie Chart
+        ObservableList<PieChart.Data> reserve1Data
+                = FXCollections.observableArrayList(
+                        new PieChart.Data("Aktuell", ValueHolder.getInstance().getAktuell1Reserve()),
+                        new PieChart.Data("Ziel", ValueHolder.getInstance().getZiel1Reserve()));
+        reserve1Chart.getData().addAll(reserve1Data);
+        
     }
 
     @FXML
@@ -270,6 +275,11 @@ public class ResultController implements Initializable {
     @FXML
     private void goToHilfe(ActionEvent event) {
         SceneChanger.getInstance().loadFXML("View/Help.fxml", rootpane);
+    }
+
+    @FXML
+    private void goToErklaerung(ActionEvent event) {
+        SceneChanger.getInstance().loadFXML("View/Description.fxml", rootpane);
     }
 
 }

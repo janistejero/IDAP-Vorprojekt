@@ -86,7 +86,7 @@ public class CalculatorController implements Initializable {
         
         emptyCounter = 0;
         
-        // form validation
+        // form validatierung
         if (erfolgTxt.getText().isEmpty()) {
             errorLbl.setText("Feld Erfolg kann nicht leer sein.");
             erfolgTxt.setStyle("-fx-border-color: red");
