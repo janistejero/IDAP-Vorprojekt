@@ -111,6 +111,12 @@ public class ResultController implements Initializable {
     private Label zweiteGesReserveLbl;
     @FXML
     private Button erklaerungBtn;
+    @FXML
+    private HBox reservendeckungHBox;
+    @FXML
+    private Label reservendeckungLbl;
+    @FXML
+    private Label reservendeckungWertLbl;
 
     /**
      * Initializes the controller class.
@@ -128,9 +134,6 @@ public class ResultController implements Initializable {
         menuHilfe.setOnAction((ActionEvent event) -> {
             goToHilfe(event);
         });
-
-        
-     
 
         reserve1Chart.setLabelLineLength(10);
         reserve1Chart.setLegendSide(Side.LEFT);
@@ -151,8 +154,6 @@ public class ResultController implements Initializable {
             });
         }
         // -----------------------------------------------------------------------------------------------------
-        
-        
 
         showResults();
     }
@@ -165,6 +166,10 @@ public class ResultController implements Initializable {
         neu1ReserveLbl.setText(String.valueOf(ValueHolder.getInstance().getNeu1Reserve()));
         neu1ReserveWertLbl.setText(String.valueOf(ValueHolder.getInstance().getReservenzuweisung()));
 
+        if (ValueHolder.getInstance().getReservenzuweisung() < 1) {
+            verwendungsplanVBox.getChildren().remove(ersteGesReservenHBox);
+        }
+
         // erfolg
         if (ValueHolder.getInstance().getErfolg() > 1) {
             erfolgLbl.setText("Jahresgewinn");
@@ -172,7 +177,7 @@ public class ResultController implements Initializable {
             erfolgLbl.setText("Jahresverlust");
         }
 
-        erfolgWertLbl.setText(String.valueOf(ValueHolder.getInstance().getErfolg()));
+        erfolgWertLbl.setText(String.format("%.0f", ValueHolder.getInstance().getErfolg()));
 
         // erfolgvortrag
         if (ValueHolder.getInstance().getErfolgvortrag() > 1) {
@@ -180,7 +185,7 @@ public class ResultController implements Initializable {
         } else {
             erfolgvortragLbl.setText("Verlustvortrag");
         }
-        erfolgvortragWertLbl.setText(String.valueOf(ValueHolder.getInstance().getErfolgvortrag()));
+        erfolgvortragWertLbl.setText(String.format("%.0f", ValueHolder.getInstance().getErfolgvortrag()));
 
         // bilanzerfolg
         if (ValueHolder.getInstance().getBilanzerfolg() > 1) {
@@ -204,18 +209,17 @@ public class ResultController implements Initializable {
             superdividendeWertLbl.setText("---");
         } else {
             // zweite Reserve und Superdividende
-            System.out.println(ValueHolder.getInstance().getSuperdividendeAusschuettung());
             System.out.println(ValueHolder.getInstance().getSuperdividende());
             if (ValueHolder.getInstance().getSuperdividendeAusschuettung()) {
                 // zweite reserve
-                aktuell2ReserveLbl.setText(String.valueOf(ValueHolder.getInstance().getAktuell2Reserve()));
-                ziel2ReserveLbl.setText(String.valueOf(ValueHolder.getInstance().getAktuell2Reserve()));
-                neu2ReserveWertLbl.setText(String.valueOf(ValueHolder.getInstance().getNeu2Reserve()));
-                neu2ReserveLbl.setText(String.valueOf(ValueHolder.getInstance().getNeu2Reserve()));
-                
+                aktuell2ReserveLbl.setText(String.format("%.0f", ValueHolder.getInstance().getAktuell2Reserve()));
+                ziel2ReserveLbl.setText(String.format("%.0f", ValueHolder.getInstance().getAktuell2Reserve()));
+                neu2ReserveWertLbl.setText(String.format("%.0f", ValueHolder.getInstance().getNeu2Reserve()));
+                neu2ReserveLbl.setText(String.format("%.0f", ValueHolder.getInstance().getNeu2Reserve()));
+
                 // superdividende
-                superdividendeWertLbl.setText(String.valueOf(ValueHolder.getInstance().getSuperdividende()));
-                superdividendeWertLbl2.setText(String.valueOf(ValueHolder.getInstance().getSuperdividende()));
+                superdividendeWertLbl.setText(String.format("%.0f", ValueHolder.getInstance().getSuperdividende()));
+                superdividendeWertLbl2.setText(String.format("%.0f", ValueHolder.getInstance().getSuperdividende()));
             } else {
                 aktuell2ReserveLbl.setText("---");
                 ziel2ReserveLbl.setText("---");
@@ -227,8 +231,8 @@ public class ResultController implements Initializable {
 
             // Grunddividende
             if (ValueHolder.getInstance().getDividendenAusschuettung()) {
-                grunddividendeWertLbl.setText(String.valueOf(ValueHolder.getInstance().getGrunddividende()));
-                grunddividendeWertLbl2.setText(String.valueOf(ValueHolder.getInstance().getGrunddividende()));
+                grunddividendeWertLbl.setText(String.format("%.0f", ValueHolder.getInstance().getGrunddividende()));
+                grunddividendeWertLbl2.setText(String.format("%.0f", ValueHolder.getInstance().getGrunddividende()));
             } else {
                 grunddividendeWertLbl.setText("---");
                 verwendungsplanVBox.getChildren().remove(grunddividendeHBox);
@@ -242,29 +246,42 @@ public class ResultController implements Initializable {
             }
 
             // erstes zwischentotal
-            zwischentotalWertLbl1.setText(String.valueOf(ValueHolder.getInstance().getZwischenresultat()));
+            zwischentotalWertLbl1.setText(String.format("%.0f", ValueHolder.getInstance().getZwischenresultat()));
 
-            // zweites zwischentotal
-            double zwischentotalNachDividende = ValueHolder.getInstance().getZwischenresultat() - ValueHolder.getInstance().getGrunddividende();
-            zwischentotalWertLbl2.setText(String.valueOf(zwischentotalNachDividende));
+            if (ValueHolder.getInstance().getZwischenresultat() == (ValueHolder.getInstance().getZwischenresultat() - ValueHolder.getInstance().getGrunddividende())) {
+                verwendungsplanVBox.getChildren().remove(erstesZwischentotalHBox);
+                zwischentotalWertLbl2.setText(String.format("%.0f", ValueHolder.getInstance().getZwischenresultat() ));
+            } else {
+                // zweites zwischentotal
+                double zwischentotalNachDividende = ValueHolder.getInstance().getZwischenresultat() - ValueHolder.getInstance().getGrunddividende();
+                zwischentotalWertLbl2.setText(String.format("%.0f", zwischentotalNachDividende));
+            }
 
         }
 
-        bilanzerfolgWertLbl.setText(String.valueOf(ValueHolder.getInstance().getBilanzerfolg()));
+        bilanzerfolgWertLbl.setText(String.format("%.0f", ValueHolder.getInstance().getBilanzerfolg()));
 
+        // reservendeckung
+        if (ValueHolder.getInstance().getReservendeckung()) {
+            reservendeckungWertLbl.setText(String.format("%.0f", ValueHolder.getInstance().getGesReservendeckung()));
+        } else {
+            verwendungsplanVBox.getChildren().remove(reservendeckungHBox);
+        }
+
+        // neuer erfolgvortrag
         if (ValueHolder.getInstance().getNeuererfolgvortag() < 0) {
             neuerErfolgvortragLbl.setText("Verlustvortrag neu");
         }
 
-        neuerErfolgvortragWertLbl.setText(String.valueOf((int) ValueHolder.getInstance().getNeuererfolgvortag()));
-        
+        neuerErfolgvortragWertLbl.setText(String.valueOf(ValueHolder.getInstance().getNeuererfolgvortag()));
+
         // Pie Chart
         ObservableList<PieChart.Data> reserve1Data
                 = FXCollections.observableArrayList(
                         new PieChart.Data("Aktuell", ValueHolder.getInstance().getAktuell1Reserve()),
                         new PieChart.Data("Ziel", ValueHolder.getInstance().getZiel1Reserve()));
         reserve1Chart.getData().addAll(reserve1Data);
-        
+
     }
 
     @FXML

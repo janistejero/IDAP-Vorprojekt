@@ -35,6 +35,8 @@ public class ValueHolder {
     private double ziel1Reserve;
     private double neu1Reserve;
     private double neu2Reserve;
+    private boolean reservendeckung;
+    private double gesReservendeckung;
 
     // dividende
     private double gewuenschteDividende;
@@ -207,4 +209,21 @@ public class ValueHolder {
         this.dividendenAusschuettung = dividendenAusschuettung;
     }
 
+    public boolean getReservendeckung() {
+        return reservendeckung;
+    }
+
+    public void setReservendeckung(boolean reservendeckung) {
+        this.reservendeckung = reservendeckung;
+    }
+
+    public double getGesReservendeckung() {
+        return gesReservendeckung;
+    }
+
+    public void setGesReservendeckung(double gesReservendeckung) {
+        this.gesReservendeckung = gesReservendeckung;
+    }
+
+    
 }
