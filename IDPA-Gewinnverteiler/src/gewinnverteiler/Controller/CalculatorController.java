@@ -49,9 +49,7 @@ public class CalculatorController implements Initializable {
     @FXML
     private TextField zielDividendeTxt;
 
-    private ResultController resultController;
-
-    // variablen
+    // Variablen
     private double neuererfolgvortag;
     private double bilanzerfolg;
     private double zwischenresultat;
@@ -108,7 +106,7 @@ public class CalculatorController implements Initializable {
         }
 
         if (Double.valueOf(zielDividendeTxt.getText()) < 0 || Double.valueOf(zielDividendeTxt.getText()) > 100) {
-            errorLbl.setText("Gewünschte Dividende muss zwischen 0 und 100 % liegen.");
+            errorLbl.setText("Dividende muss zwischen 0 und 100 % liegen.");
             zielDividendeTxt.setStyle("-fx-border-color: red");
             emptyCounter++;
         }
@@ -199,7 +197,6 @@ public class CalculatorController implements Initializable {
                             zwischenresultat -= gewuenschteDividende;
                             dividende = gewuenschteDividende;
 
-                            System.out.println("---------------------------------------------------------------------------------------");
                             // gewünschte superdividende
                             superdividendeAusschuettung = true;
                             double gewuenschteSuperdividendeProzent = gewuenschteDividendeProzent - 5;
@@ -215,7 +212,6 @@ public class CalculatorController implements Initializable {
                             moeglicheSuperdividende = ((aktienkapital + partizipationskapital) / 100) * moeglicheSuperdividende; // in Franken
                             System.out.println("Mögliche Superdividende in CHF: " + moeglicheSuperdividende);
 
-                            System.out.println("---------------------------------------------------------------------------------------");
                             if (moeglicheSuperdividende > gewuenschteSuperdividende) { // gewünschte superdividende möglich?
                                 zwischenresultat -= gewuenschteSuperdividende;
                                 superdividende = gewuenschteSuperdividende;
@@ -233,7 +229,6 @@ public class CalculatorController implements Initializable {
                             dividende = zwischenresultat;
                             zwischenresultat = 0;
                         }
-
                     } else { // keine superdividende
                         // gewünschte grunddividende ermitteln
                         double gewuenschteDividende = ((aktienkapital + partizipationskapital) / 100) * 5;
@@ -246,9 +241,8 @@ public class CalculatorController implements Initializable {
                             dividende = zwischenresultat;
                             zwischenresultat = 0;
                         }
-
                     }
-                } 
+                }
             } else {
                 System.out.println("Keine Dividende, Superdividende oder Reservenzuweisung, da ein Bilanzverlust vorhanden ist.");
                 dividende = 0;
@@ -262,50 +256,19 @@ public class CalculatorController implements Initializable {
                 } else {
                     //zwischenresultat = bilanzerfolg;
                 }
-
             }
 
-            /*
-            double volleGrundDividende = (partizipationskapital + aktienkapital) / 100 * 5;
-
-            // 5% grösser als der bilanzerfolg *nach verrechnung* der gesetzlichen zuweisung
-            System.out.println("Bilanzerfolg: " + bilanzerfolg);
-            if (volleGrundDividende < bilanzerfolg) {
-                bilanzerfolg -= volleGrundDividende;
-                dividende = volleGrundDividende;
-                zwischenresultat = bilanzerfolg;
-                superdividendeAusschuettung = true;
-            } else if (volleGrundDividende > bilanzerfolg) {
-                dividende = Math.floor(bilanzerfolg / (aktienkapital + partizipationskapital) * 100); // in Prozenten
-                dividende = ((aktienkapital + partizipationskapital) / 100) * dividende; // in Franken
-                bilanzerfolg -= dividende;
-                zwischenresultat = bilanzerfolg;
-            }
-                 
-                // done above
-                if (superdividendeAusschuettung) {
-                    superdividende = Math.floor(zwischenresultat / ((aktienkapital + partizipationskapital) * 0.011)); // in Prozenten
-                    superdividende = ((aktienkapital + partizipationskapital) / 100) * superdividende; // in Franken
-                    zweiteGesReservenZuweisung = (superdividende / 100) * 10;
-                    ValueHolder.getInstance().setZwischenresultat(zwischenresultat + dividende);
-                    zwischenresultat -= superdividende;
-                    zwischenresultat -= zweiteGesReservenZuweisung;
-                    System.out.println("Zweite Gesetzliche Reserve: " + zweiteGesReservenZuweisung);
-                }
-             */
             System.out.println("Dividende: " + dividende);
             System.out.println("Zwischentotal nach Superdividende: " + zwischenresultat);
             System.out.println("Superdividende: " + superdividende);
 
             neuererfolgvortag = zwischenresultat;
-            // Zum ValueHolder schreiben
             updateValues();
 
             // weiterleitung zur Resultatseite
             SceneChanger.getInstance().loadFXML("View/Result.fxml", rootpane);
 
         }
-
     }
 
     private void updateValues() {

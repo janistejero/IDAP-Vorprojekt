@@ -11,11 +11,9 @@ package gewinnverteiler;
  */
 public class ValueHolder {
 
-    // Variablen
-    private static ValueHolder instance;
+    
 
     // erfolg
-    private double erfolg;
     private double bilanzerfolg;
     private double zwischenresultat;
 
@@ -45,10 +43,12 @@ public class ValueHolder {
     private boolean superdividendeAusschuettung;
     private boolean dividendenAusschuettung;
 
+    // Variablen
+    private static ValueHolder instance;
+    private double erfolg;
     
-    private ValueHolder() {
-
-    }
+    
+    private ValueHolder() {}
 
     public static ValueHolder getInstance() {
         if (ValueHolder.instance == null) {

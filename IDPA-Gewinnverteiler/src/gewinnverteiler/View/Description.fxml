@@ -10,51 +10,52 @@
 <?import javafx.scene.web.WebView?>
 
 <AnchorPane id="AnchorPane" fx:id="rootpane" prefHeight="800.0" prefWidth="1200.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gewinnverteiler.Controller.DescriptionController">
-   <children>
-      <BorderPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #343640; -fx-border-color: #40414a;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <top>
-            <VBox prefHeight="100.0" prefWidth="100.0" BorderPane.alignment="CENTER">
-               <children>
-                  <MenuBar style="-fx-background-color: #9d9fab; -fx-border-color: #40414a;">
-                     <menus>
-                        <Menu fx:id="menuRechner" mnemonicParsing="false" onAction="#goToRechner" text="Rechner">
-                           <items>
-                              <MenuItem mnemonicParsing="false" onAction="#goToRechner" text="Rechner zeigen" />
-                           </items>
-                        </Menu>
-                        <Menu fx:id="menuResultat" mnemonicParsing="false" onAction="#goToResultat" text="Resultat">
-                           <items>
-                              <MenuItem mnemonicParsing="false" text="Resultat zeigen" />
-                           </items>
-                        </Menu>
-                        <Menu fx:id="menuHilfe" mnemonicParsing="false" onAction="#goToHilfe" text="Hilfe">
-                           <items>
-                              <MenuItem mnemonicParsing="false" text="Hilfe anzeigen" />
-                           </items></Menu>
-                        <Menu mnemonicParsing="false" text="Erklärung" />
-                     </menus>
-                  </MenuBar>
-               </children>
-            </VBox>
-         </top>
-         <bottom>
-            <VBox alignment="BOTTOM_CENTER" prefHeight="100.0" prefWidth="100.0" BorderPane.alignment="CENTER">
-               <children>
-                  <MenuBar style="-fx-background-color: #9d9fab; -fx-border-color: #40414a;">
-                     <menus>
-                        <Menu mnemonicParsing="false" />
-                     </menus>
-                  </MenuBar>
-               </children>
-            </VBox>
-         </bottom>
-         <center>
-            <WebView fx:id="siteWebView" prefHeight="-1.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-               <BorderPane.margin>
-                  <Insets left="15.0" right="15.0" />
-               </BorderPane.margin>
-            </WebView>
-         </center>
-      </BorderPane>
-   </children>
+    <children>
+        <BorderPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #343640; -fx-border-color: #40414a;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <top>
+                <VBox prefHeight="100.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+                    <children>
+                        <MenuBar style="-fx-background-color: #9d9fab; -fx-border-color: #40414a;">
+                            <menus>
+                                <Menu fx:id="menuRechner" mnemonicParsing="false" onAction="#goToRechner" text="Rechner">
+                                    <items>
+                                        <MenuItem mnemonicParsing="false" onAction="#goToRechner" text="Rechner zeigen" />
+                                    </items>
+                                </Menu>
+                                <Menu fx:id="menuResultat" mnemonicParsing="false" onAction="#goToResultat" text="Resultat">
+                                    <items>
+                                        <MenuItem mnemonicParsing="false" text="Resultat zeigen" />
+                                    </items>
+                                </Menu>
+                                <Menu fx:id="menuHilfe" mnemonicParsing="false" onAction="#goToHilfe" text="Hilfe">
+                                    <items>
+                                        <MenuItem mnemonicParsing="false" text="Hilfe anzeigen" />
+                                    </items>
+                                </Menu>
+                                <Menu mnemonicParsing="false" text="Erklärung" />
+                            </menus>
+                        </MenuBar>
+                    </children>
+                </VBox>
+            </top>
+            <bottom>
+                <VBox alignment="BOTTOM_CENTER" prefHeight="100.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+                    <children>
+                        <MenuBar style="-fx-background-color: #9d9fab; -fx-border-color: #40414a;">
+                            <menus>
+                                <Menu mnemonicParsing="false" />
+                            </menus>
+                        </MenuBar>
+                    </children>
+                </VBox>
+            </bottom>
+            <center>
+                <WebView fx:id="siteWebView" prefHeight="-1.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                    <BorderPane.margin>
+                        <Insets left="15.0" right="15.0" />
+                    </BorderPane.margin>
+                </WebView>
+            </center>
+        </BorderPane>
+    </children>
 </AnchorPane>

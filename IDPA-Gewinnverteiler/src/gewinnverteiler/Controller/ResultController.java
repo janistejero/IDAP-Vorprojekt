@@ -250,7 +250,7 @@ public class ResultController implements Initializable {
 
             if (ValueHolder.getInstance().getZwischenresultat() == (ValueHolder.getInstance().getZwischenresultat() - ValueHolder.getInstance().getGrunddividende())) {
                 verwendungsplanVBox.getChildren().remove(erstesZwischentotalHBox);
-                zwischentotalWertLbl2.setText(String.format("%.0f", ValueHolder.getInstance().getZwischenresultat() ));
+                zwischentotalWertLbl2.setText(String.format("%.0f", ValueHolder.getInstance().getZwischenresultat()));
             } else {
                 // zweites zwischentotal
                 double zwischentotalNachDividende = ValueHolder.getInstance().getZwischenresultat() - ValueHolder.getInstance().getGrunddividende();
